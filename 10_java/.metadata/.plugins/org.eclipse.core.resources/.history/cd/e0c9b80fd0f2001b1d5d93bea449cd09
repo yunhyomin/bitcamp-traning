@@ -1,0 +1,53 @@
+package com.mystudy.scanner4_bank;
+
+import java.util.Scanner;
+
+public class BankATM {
+	private int money; //통장 계좌(금액)
+	private Scanner scanner = new Scanner(System.in);
+
+	public void startBank() {
+		System.out.println(">> ATM 기계를 사용합니다");
+		System.out.println("1.입금 2.출금 3.통장확인 0.종료");
+		int userChoice = Integer.parseInt(scanner.nextLine());
+		if(1==userChoice) {
+			System.out.println(">>입금액 : ");
+			money = Integer.parseInt(scanner.nextLine());
+			System.out.println("::통장금액 : "+ money +"원");
+
+		}
+		if(2==userChoice) {
+			
+		}
+		if(3==userChoice) {
+			
+		}
+		if(0==userChoice) {
+			System.out.println("프로그램을 종료합니다.");
+		}
+		
+
+	}
+
+}
+/*
+1.입금  2.출금  3.통장확인  0.종료
+>> 작업선택 : 1
+>> 입금액 : 10000
+::통장금액 : 10000원
+
+1.입금  2.출금  3.통장확인  0.종료
+>> 작업선택 : 2
+>> 출금액 : 5000
+::통장금액 : 5000원
+
+1.입금  2.출금  3.통장확인  0.종료
+>> 작업선택 : 3
+::통장금액 : 5000원
+
+1.입금  2.출금  3.통장확인  0.종료
+>> 작업선택 : 0
+>> 작업을 종료합니다
+*/
+
+

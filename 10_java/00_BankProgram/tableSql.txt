@@ -1,0 +1,67 @@
+CREATE TABLE financeProducts
+(
+    fnn_no                NUMBER           NOT NULL, 
+    fnn_name              VARCHAR2(100)    NOT NULL, 
+    fnn_manager           VARCHAR2(50)     NOT NULL, 
+    fnn_risk              VARCHAR2(20)     NOT NULL, 
+    fnn_yield             NUMBER(18, 2)    NOT NULL, 
+    fnn_operatingAmoun    NUMBER           NULL, 
+    fnn_fee               NUMBER           NULL, 
+    fnn_startDate         DATE             NOT NULL, 
+    cus_no                NUMBER           NOT NULL, 
+     PRIMARY KEY (fnn_no)
+)
+/
+
+CREATE SEQUENCE financeProducts_SEQ
+START WITH 1
+INCREMENT BY 1;
+/
+
+CREATE OR REPLACE TRIGGER financeProducts_AI_TRG
+BEFORE INSERT ON financeProducts 
+REFERENCING NEW AS NEW FOR EACH ROW 
+BEGIN 
+    SELECT financeProducts_SEQ.NEXTVAL
+    INTO :NEW.fnn_no
+    FROM DUAL;
+END;
+/
+
+--DROP TRIGGER financeProducts_AI_TRG;
+/
+
+--DROP SEQUENCE financeProducts_SEQ;
+/
+
+COMMENT ON COLUMN financeProducts.fnn_no IS '금융상품번호'
+/
+
+COMMENT ON COLUMN financeProducts.fnn_name IS '금융상품이름'
+/
+
+COMMENT ON COLUMN financeProducts.fnn_manager IS '운용사'
+/
+
+COMMENT ON COLUMN financeProducts.fnn_risk IS '위험등급'
+/
+
+COMMENT ON COLUMN financeProducts.fnn_yield IS '수익률'
+/
+
+COMMENT ON COLUMN financeProducts.fnn_operatingAmoun IS '운용액'
+/
+
+COMMENT ON COLUMN financeProducts.fnn_fee IS '수수료'
+/
+
+COMMENT ON COLUMN financeProducts.fnn_startDate IS '시작일'
+/
+
+COMMENT ON COLUMN financeProducts.cus_no IS '고객번호'
+/
+
+ALTER TABLE financeProducts
+    ADD CONSTRAINT FK_financeProducts_cus_no_cust FOREIGN KEY (cus_no)
+        REFERENCES customer (cus_no)
+/

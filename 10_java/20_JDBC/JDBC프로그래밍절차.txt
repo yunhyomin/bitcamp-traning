@@ -1,0 +1,45 @@
+오라클 JDBC드라이버 등록해서 개발환경 설정 
+
+1.오라클 JDBC드라이버 찾기 
+	C:\MyStudy\util\sqldeveloper-19.4.0.354.1759-x64\sqldeveloper\jdbc\lib
+	ojdbc8.jar
+	
+2.프로젝트에 복사하기 
+	ojdbc8.jar파일을 lib폴더(디렉토리) 만들고 복사하기 
+	
+3.라이브러리를 사용할 수 있도록 빌드패스에 등록 
+3-1.프로젝트 선택 후 우클릭 > build path 선택 > configure build path 선택 
+3-2.<Libraries>탭에서 우측에 있는 [Add JARs..]버튼 클릭해서 
+	ojdbc8.jar파일이 있는 위치 (프로젝트 > lib)에서 ojdbc8.jar선택 등록 
+	
+4.JDBC프로그래밍 절차에 따라 소스코드 작성 
+
+===========================================
+//JDBC이용한 DB연동 프로그래밍 작성 절차 
+0.JDBC 라이브러리 개발환경 설정 (빌드경로에 등록)
+1.JDBC 드라이버 로딩 
+	Class.forName("오라클드라이버위치");
+2.DB연결 - Connection 객체 생성 <- DriverManager
+	Connection 객체  = DriverManager.getConnection(String url,String user,String password);
+---------------------------------------------
+여기에서 드라이버 로딩이 안됐거나 DB연결이 안됐다면 예외처리를 합쳐서 해준다 
+try{1,2,3,4} catch(ClassNotFoundException | SQLException e){}finally{5}
+3.Statement 문 실행 (SQL문 실행)
+	3-1.Connection객체로부터 Statement 객체 생성 
+		-Statement : createStatement(SQL문)
+		-PreparedStatement : prepareStatement(바인드변수(?)들어간 SQL문)
+			? 위치에 값 대입 : PreparedStatment의 객체.set변수타입(?의 위치값,들어갈 값);
+	3-2.
+		SELECT -> ResultSet객체생성 , ResultSet객체 = PreparedStatment의 객체.executeQuery();
+		INSERT,UPDATE,DELETE -> PreparedStatment의 객체.executeUpdate(); (처리건수가 리턴된다)
+4.SQL실행 결과에 대한 처리 
+	-SELECT [executeQuery()] : 조회(검색) 데이터 결과 값에 대한 처리(출력:ResultSet의 메소드 .next()사용) 
+	-INSERT,UPDATE,DELETE [executeUpdate()]: int값(건수) 처리 
+5.클로징 처리에 의한 자원반납 
+	 객체생성한 순서의 반대로 close처리 
+	 객체들이 null이 아니라면 (!= null)
+	 ResultSet객체.close();
+	 Statement객체.close();
+	 Connection객체.close();
+	 --->예외처리도 해준다 
+===============================================

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;FileReaderExam.java&apos; to &apos;14_IO_Reader_Writer/src/com.mystudy.reader_writer&apos;&#x0D;&#x0A;- Original project: &apos;14_IO_Reader_Writer&apos;&#x0D;&#x0A;- Destination element: &apos;14_IO_Reader_Writer/src/com.mystudy.reader_writer&apos;&#x0D;&#x0A;- Original element: &apos;com.mystudy.reader_writer.FileReaderExam.java&apos;" description="Copy compilation unit" destination="/src&lt;com.mystudy.reader_writer" element1="/src&lt;com.mystudy.reader_writer{FileReaderExam.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1627894479211" units="1" version="1.0"/>
+</session>

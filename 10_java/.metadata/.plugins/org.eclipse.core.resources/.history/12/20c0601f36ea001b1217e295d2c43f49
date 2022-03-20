@@ -1,0 +1,83 @@
+package com.mystudy.bean;
+
+
+		public class Student {
+			private String name;//private 선언으로 외부에서 접근불가.
+			private int kor;
+			private int eng;
+			private int math;
+			private int tot;
+			private double aver;
+			
+			boolean ok
+			
+			
+			public Student() {
+				super();//부모클래스(Object())로 만들어진 객체(인스턴스)
+			}			//생략시 컴파일시 자동삽입되어 처리됨.
+						//생성자의 맨 처음에 작성.(생략가능)
+			public Student(String name) {
+				super(); 
+				this.name = name;
+			}
+			public Student(String name, int kor, int eng, int math) {
+				super();
+				this.name = name;
+				this.kor = kor;
+				this.eng = eng;
+				this.math = math;
+				computeTotAvg();
+			}
+			
+			private void computeTotAvg() {
+				tot = kor+eng+math;
+				aver = tot*100/3/100.0;
+			}
+		
+			//name에 대한 get메소드(getter)
+			public String getName() {
+				return this.name;
+			}
+			//name에 대한 set메소드(setter)
+			public void setName(String name) {//this를 사용!!!! 현재 클래스의 변수임을 표시해야한다.
+				this.name = name;
+			}
+			
+			public int getKor() {
+				return kor;
+			}
+			public void setKor(int kor) {
+				this.kor = kor;
+			}
+			public int getEng() {
+				return eng;
+			}
+			public void setEng(int eng) {
+				this.eng = eng;
+			}
+			public int getMath() {
+				return math;
+			}
+			public void setMath(int math) {
+				this.math = math;
+			}
+			public int getTot() {
+				return tot;
+			}
+			public void setTot(int tot) {
+				this.tot = tot;
+			}
+			public double getAver() {
+				return aver;
+			}
+			public void setAver(double aver) {
+				this.aver = aver;
+			}
+			
+
+			
+		}
+
+	
+
+
