@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	<typeAliases>
+		<typeAlias alias="users" type="com.spring.more.users.service.UsersVO"/>
+		<typeAlias alias="project" type="com.spring.more.project.service.ProjectVO"/>
+		<typeAlias alias="qna" type="com.spring.more.project.service.QnaVO"/>
+		<typeAlias alias="goods" type="com.spring.more.project.service.GoodsVO"/>
+		
+		<typeAlias alias="payment" type="com.spring.more.orders.service.PaymentVO"/>
+		<typeAlias alias="paymentData" type="com.spring.more.orders.service.PaymentDataVO"/>
+		<typeAlias alias="ordersPayDataVO" type="com.spring.more.orders.service.OrdersPayDataVO"/>
+		<typeAlias alias="category" type="com.spring.more.project.service.CategoryVO"/>
+		
+		<typeAlias alias="customerCenter" type="com.spring.more.admin.service.Customer_CenterVO"/>
+		
+		<!-- 민정누나 -->
+		<typeAlias alias="orderlist" type="com.spring.more.orders.service.OrderListVO"/>
+		<typeAlias alias="wish" type="com.spring.more.orders.service.WishListVO"/>
+		<typeAlias alias="wishlist" type="com.spring.more.orders.service.WishProVO"/>
+
+		<!-- 은해누나 -->
+		<typeAlias type="com.spring.more.project.service.ReviewVO" alias="review"/>
+		<typeAlias type="com.spring.more.orders.service.OrdersVO" alias="orders"/>
+		<typeAlias type="com.spring.more.orders.service.DeliveryVO" alias="delivery"/>
+		
+		<typeAlias alias="paging" type="com.spring.more.common.Paging"/>
+		
+	</typeAliases>
+  
+  <!-- SQL 작성파일인 매퍼 파일 위치 지정 -->
+  <mappers>
+    <mapper resource="mappings/member-mapper.xml"/>
+    <mapper resource="mappings/project-mapper.xml"/>
+    <mapper resource="mappings/payment-mapper.xml"/>
+    <mapper resource="mappings/qna-mapper.xml"/>
+    <mapper resource="mappings/goods-mapper.xml"/>
+    <mapper resource="mappings/FundingMapper.xml"/>
+    <mapper resource="mappings/CategoryMapper.xml"/>   
+    <mapper resource="mappings/customerCenterMapper.xml"/>    
+    <mapper resource="mappings/DeliveryMapper.xml"/>
+    <mapper resource="mappings/OrdersMapper.xml"/>
+    <mapper resource="mappings/ReviewMapper.xml"/>
+  </mappers>
+</configuration>

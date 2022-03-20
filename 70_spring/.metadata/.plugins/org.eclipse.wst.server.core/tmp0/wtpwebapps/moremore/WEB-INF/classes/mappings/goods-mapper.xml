@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="goods">
+
+	<select id="fundingAdminInventoryManageList"
+		parameterType="goods" resultType="goods">
+		SELECT * FROM
+		(SELECT ROWNUM as goods_rnum, x.* FROM
+		(SELECT g.GOODS_NO, g.GOODS_TITLE, g.GOODS_PRICE,
+		g.GOODS_STOCK
+		FROM GOODS g, PROJECT p
+		WHERE g.PRO_NO = p.PRO_NO
+		AND p.COMPANY_NO = '4'
+		ORDER BY g.PRO_NO DESC) x)
+		WHERE goods_rnum BETWEEN 1 AND 10
+	</select>
+
+
+	<update id="fundingAdminInventoryManageUpdate"
+		parameterType="map">
+		UPDATE GOODS
+		SET GOODS_STOCK = #{inventoryNum}
+		WHERE
+		GOODS_NO = #{goodsNo}
+	</update>
+
+	<select id="goodsListCount" parameterType="goods"
+		resultType="int">
+		SELECT COUNT(*) AS Allcount from (SELECT ROWNUM as rnum,
+		x.* FROM (SELECT g.GOODS_NO, g.GOODS_TITLE, g.GOODS_PRICE,
+		g.GOODS_STOCK FROM GOODS g, PROJECT p WHERE g.PRO_NO = p.PRO_NO AND
+		p.COMPANY_NO = '4' ORDER BY g.PRO_NO DESC) x) ORDER BY rnum
+	</select>
+</mapper>

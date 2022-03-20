@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="users">
+
+	<select id="selectAllUsers" parameterType="users" resultType="users">
+		SELECT * FROM USERS ORDER BY USER_NO;
+	</select>
+	
+	<select id="selectOneUsers" parameterType="string" resultType="users">
+		SELECT * FROM USERS WHERE USER_ID = #{id}
+	</select>
+	
+	<select id="checkIdPassword" parameterType="map" resultType="users">
+		SELECT *
+		FROM (SELECT * FROM USERS
+				WHERE USER_TYPE = '회원' 	
+				   OR USER_TYPE = '판매자' 
+				   OR USER_TYPE = '펀딩 판매자'
+				   OR USER_TYPE = '상품 판매자'
+				   OR USER_TYPE = '관리자') 
+		WHERE USER_ID = #{user_id} AND USER_PWD = #{user_pwd}
+	</select>
+	
+	<insert id="insertUsers" parameterType="users">
+		INSERT INTO USERS (USER_NO, USER_NAME, USER_ID, USER_PWD, USER_PHONE, USER_EMAIL, USER_GENDER, USER_JOINDATE, USER_TYPE, USER_ADDRESS, USER_ADDRESS_NUMBER)
+		VALUES ((SELECT NVL(MAX(USER_NO),0)+1 FROM USERS), #{user_name}, #{user_id}, #{user_pwd}, #{user_phone}, #{user_email}, #{user_gender}, sysdate, '회원', #{user_address}, #{user_address_number})
+	</insert>
+	
+	<update id="updateUsers" parameterType="users">
+		UPDATE USERS SET 
+			USER_NAME = #{user_name}, 
+			USER_PWD = #{user_pwd}, 
+			USER_PHONE = #{user_phone}, 
+			USER_EMAIL = #{user_email},
+			USER_ADDRESS = #{user_address}, 
+			USER_ADDRESS_NUMBER = #{user_address_number}
+        WHERE USER_ID = #{user_id}
+	</update>
+	
+	<delete id="deleteUsers" parameterType="users">
+		UPDATE USERS SET 
+			USER_TYPE = '탈퇴 회원',
+			USER_WITHDRAWAL_REASON = #{user_withdrawal_reason}
+		WHERE USER_ID = #{user_id}
+	</delete>
+	
+	
+<!-- 	// 은해누나 -->
+<select id="getUsers" parameterType="users" resultType="users">
+		SELECT * FROM USERS 
+		WHERE USER_ID = #{user_id} AND USER_PWD = #{user_pwd}
+	</select>
+	
+	<!-- 태용 -->
+	<select id="chkIdOrEmail" parameterType="map" resultType="string">
+		<if test="user_id != null">
+			select user_id from users where user_id = #{user_id}
+		</if>
+		<if test="user_email != null">
+			select user_email from users where user_email = #{user_email}
+		</if>
+	</select>
+</mapper>

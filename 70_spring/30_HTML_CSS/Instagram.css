@@ -1,0 +1,38 @@
+
+body{
+    background-color: #dcdc;
+    position:relative;
+  
+}
+.container{
+    background-color : #fff;
+    width:  500px; height:600px;
+    border: 1px ridge;
+    position:relative;
+    left:calc(100%/2.8); top:20%;
+    font-family: fantasy;
+}
+input[type=email]{
+    transform: translate(10%,100%);
+    width: 400px; height: 50px;
+}
+input[type=password]{
+    transform: translate(10%,100%);
+    width: 400px; height: 50px;
+}
+input[type=submit]{
+    transform: translate(10%,200%);
+    width: 410px; height: 40px;
+    font-size: 25px;
+}
+.id4{
+    transform: translate(55%,250%);
+    width: 410px; height: 40px;
+}
+.id5{
+    transform: translate(100%,30%);
+}
+
+.subcontainer{
+
+}

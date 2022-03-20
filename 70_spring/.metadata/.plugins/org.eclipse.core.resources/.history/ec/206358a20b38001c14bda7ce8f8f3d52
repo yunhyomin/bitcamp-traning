@@ -1,0 +1,8 @@
+package com.aaa.spring.controller;
+
+
+public class UserController implements Controller{
+	
+	
+	
+}

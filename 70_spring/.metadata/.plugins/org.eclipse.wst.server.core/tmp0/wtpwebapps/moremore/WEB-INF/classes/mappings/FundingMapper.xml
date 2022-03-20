@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="more">
+	<insert id="insertFunding" parameterType="project">
+		INSERT INTO PROJECT 
+	(pro_no, user_no , company_no, pro_cateno, pro_title, PRO_STITLE, PRO_GPRICE, PRO_THUMBNAIL_PATH, PRO_IMG_PATH, PRO_START_DT ,
+	 PRO_CLOSE_DT, PRO_HASHTAG, PRO_STATUS, PRO_COUNT, PRO_TYPE)
+	VALUES (
+	PROJECT_SEQ.nextval, 
+	(SELECT u.user_no FROM users u, COMPANY c WHERE u.user_no = #{user_no} and c.user_no = #{user_no}),
+	(SELECT c.COMPANY_NO FROM users u, COMPANY c WHERE u.user_no = #{user_no} and c.user_no = #{user_no}),
+	(SELECT pro_cateno FROM PROJECT_CATEGORY WHERE pro_cateno = #{pro_cateno}),
+	#{pro_title},
+	#{pro_stitle},
+	#{pro_gprice},
+	#{pro_thumbnail_path},
+	#{pro_img_path},
+	#{pro_start_dt},
+	#{pro_close_dt},
+	#{pro_hashtag},
+	#{pro_status},
+	#{pro_count},
+	#{pro_type}	
+)
+	</insert>
+	<select id="selectOne" parameterType="project" 
+			resultType="project">
+		select * from PROJECT where user_no = #{user_no} and pro_no = #{pro_no}
+	</select>
+	<select id="selectOneList" parameterType="project"
+			resultType="project">
+		select * from project where user_no = #{user_no} order by pro_no desc
+	</select>
+	
+	<select id="paging" parameterType="map" 
+			resultType="project">
+		SELECT * FROM 
+			(SELECT ROWNUM AS a, b.* FROM (SELECT * FROM project p WHERE user_no = #{user_no} ORDER BY pro_no DESC)b)
+			WHERE a BETWEEN #{min} AND #{max}
+	</select>
+	
+	<update id="updateFunding" parameterType="project">
+			update project set 
+			pro_cateno = #{pro_cateno},
+			pro_title = #{pro_title},
+			pro_stitle = #{pro_stitle},
+			pro_gprice = #{pro_gprice},
+			pro_thumbnail_path = #{pro_thumbnail_path},
+			pro_img_path = #{pro_img_path},
+			pro_start_dt = #{pro_start_dt},
+			pro_close_dt = #{pro_close_dt},
+			pro_hashtag = #{pro_hashtag} 
+			where user_no = #{user_no} and pro_no = #{pro_no}
+	</update>
+	<select id="selectList" parameterType="project" 
+			resultType="project" >
+		select * from project
+	</select>
+	
+	<select id="totalPage" parameterType="string" resultType="int">
+		SELECT COUNT(pro_no) FROM project WHERE user_no = #{user_no}
+	</select>
+	
+	<select id="getGoodsList" parameterType="string" resultType="goods">
+		select * from goods where pro_no = #{pro_no}
+	</select>
+	<update id="updateGoods" parameterType="list">
+		update goods set goods_title = #{goods_title}, goods_content = #{goods_content}, goods_price = #{goods_price} where goods_no = #{goods_no}
+	</update>
+	<insert id="insertGoods" parameterType="list">
+		insert into goods 
+			values (
+				goods_seq.nextval, 
+				(SELECT max(pro_no) FROM project WHERE user_no = #{goods_no} ),
+				#{goods_title},
+				#{goods_content},
+				#{goods_price},
+				#{goods_type},
+				100)
+	</insert>
+	<update id="updateCloseProject" parameterType="project">
+		update project set reasonTOCloseProject = #{reasonTOCloseProject}, pro_status = #{pro_status} where pro_no = #{pro_no}
+	</update>
+	<!-- //추가함 -->
+	
+	<select id="getComapanyNoOne" parameterType="project" resultType="string">
+		select company_no from company where user_no = #{user_no}
+	</select>
+</mapper>

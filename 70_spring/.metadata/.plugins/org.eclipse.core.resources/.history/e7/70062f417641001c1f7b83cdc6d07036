@@ -1,0 +1,46 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>공지사항</title>
+</head>
+<script>
+	
+</script>
+<style>
+	.listOne li {
+		list-style: none;
+	}
+	.listOne a{
+		text-decoration: none;
+		color: black;
+	}
+</style>
+<body>
+	<div class="tabContainer">
+		<span class="tabMenu" onclick="">전체보기</span>
+		<span class="tabMenu" onclick="">공지사항</span>
+		<span class="tabMenu" onclick="">FAQ</span>
+	</div>
+	<div class="mainContainer">
+		<div class="listWrapper">
+			<ul class="listOne">
+				<li>
+					<a href="#">
+						<span class="titleBox">
+							<span class="category">
+								공지사항
+							</span>
+								<em class="empty"></em>
+							<span class="title">제목</span>
+							<span class="date">2021-11-10</span>
+							<img src="" alt="moremore">
+						</span>
+					</a>
+			</ul>
+		</div>	
+	</div>
+</body>
+</html>

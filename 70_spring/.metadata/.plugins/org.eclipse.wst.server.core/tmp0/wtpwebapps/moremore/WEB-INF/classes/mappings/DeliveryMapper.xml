@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="deliveryDAO">
+	
+	<insert id="insertDelivery" parameterType="delivery">
+		INSERT INTO DELIVERY
+				(DELIVERY_NO, DELIVERY_NAME, DELIVERY_ADDRESS, DELIVERY_ADDRESS_NUMBER, DELIVERY_ADDRESS_PHONE, DELIVERY_CLASS, USER_NO)
+		VALUES (DELIVERY_SEQ.NEXTVAL, #{delivery_name}, #{delivery_address}, #{delivery_address_number}, #{delivery_address_phone}, #{delivery_class}, #{user_no})
+		
+	</insert>
+	
+	<delete id="deleteDelivery" parameterType="delivery">
+		DELETE FROM DELIVERY
+		WHERE USER_NO = #{user_no} AND DELIVERY_ARRIVAL_DATE IS NULL AND DELIVERY_CLASS = #{delivery_class}
+	</delete>
+	
+	<select id="selectDelivery" parameterType="delivery" resultType="delivery">
+		SELECT * FROM DELIVERY
+		WHERE USER_NO = #{user_no}
+	</select>
+	
+	<select id="selectOneDelivery" parameterType="delivery" resultType="delivery">
+		SELECT * FROM DELIVERY
+		WHERE USER_NO = #{user_no} AND DELIVERY_CLASS = '기본배송지'
+	</select>
+	
+</mapper>

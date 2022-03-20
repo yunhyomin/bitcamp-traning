@@ -1,0 +1,33 @@
+package com.aa.spring.user;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import com.aa.spring.common.JDBCUtil;
+
+public class UserDAO {
+	private Connection conn;
+	private PreparedStatement stmt; 
+	private ResultSet rs;
+	
+	String sql = "SELECT * FROM USERS";
+	
+	public List<UserVO> getUser(String id){
+		List<UserVO> list = new ArrayList<UserVO>();
+		
+		conn = JDBCUtil.getConnection();
+		
+		try {
+			stmt = conn.prepareStatement(id);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+} 

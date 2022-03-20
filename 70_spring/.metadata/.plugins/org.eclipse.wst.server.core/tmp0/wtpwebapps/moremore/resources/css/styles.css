@@ -1,0 +1,1280 @@
+html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* 배경색 */
+body {
+  font-family: "맑은고딕", "돋음", arial, sans-serif;
+  font-size: 24px;
+  background-color: #F5F6F7;
+}
+
+.headerLogo img{
+  width: 80px;
+  height: 50px;
+  margin-top: 5px;
+}
+
+.loginLogo img{
+  width: 200px;
+}
+
+ul{
+  list-style:none;
+}
+
+h4 {
+  margin: 0;
+  width:auto;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.floatRight{
+  float: right;
+  margin-top: 8px;
+}
+
+/* 테이블 */
+/* div.table 
+{
+    display:table;
+}
+form.tr, div.tr
+{
+    display:table-row;
+}
+span.td
+{
+    display:table-cell;
+} */
+
+div.table {
+  display: table;
+  width: 100%;
+}
+div.tr {
+  display: table-row;
+}
+div.td {
+  display: table-cell;
+}
+
+span.td {
+  display: table-cell;
+}
+
+div.thead {
+  display: table-header-group;
+}
+
+div.tbody {
+  display: table-row-group;
+}
+
+
+/* 미디어 쿼리  */
+
+@media (max-width: 1200px){
+.projectInfoBannerHome{
+	
+	}
+}
+
+
+@media all and (max-width: 1090px){
+.searchBar {
+  display: none;
+ }
+}
+
+@media (max-width:900px){
+.headerMenuHidden {
+  display: none;
+  }
+
+#headerMenuFunding {
+  margin-left: 20px;
+  }
+
+#headerMenuBuy {
+  margin-left: 20px;
+  }
+
+#headerMenuMoreItem {
+  display: none;
+  }
+
+
+#headerMenuGuide{
+  display: none;
+  }
+  
+.headerMenu {
+  justify-content: normal;
+  }
+  
+}
+
+@media (max-width: 660px){
+  #headerContainerId{
+  padding-left: 30px;
+  }
+  #headerMenuProjectBtnList{
+  display: none;
+  }
+} 
+
+/* header */
+
+.headerLogo{
+  width:100px;
+}
+
+.headerLogo:hover{
+  color: #888888;
+}
+
+.purple{
+  color: #551A8B;
+}
+
+.white{
+  color: white:
+}
+
+/* #headerSlide{
+  width: 1450px;
+  height: 380px;
+  background-color: #F9F8FD;
+} */
+
+.header-wrapper{
+  border-bottom: 3px solid #232a32;
+}
+
+.greenColor{
+  border-color: #80c72d;
+}
+
+.lightPink{
+  border-color: #F9F8FD;
+}
+
+
+.header-wrapper .header-contaniner{
+  height: 60px;
+  display:flex;
+}  
+
+.header-contaniner {
+  margin: 0 auto;
+  padding: 0 80px;
+  max-width: 1440px;
+}
+
+.headerMenuArea{
+  width:500px;
+}
+
+.headerMenuArea .headerMenu > li {
+  display:flex;
+  font-weight: 500;
+  margin-left : auto;
+  /* color : #797979; */
+}
+
+.headerMenu {
+  position: static;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding:0;
+  margin-top: 7px;
+}
+
+.headerMenuItem{
+  padding-top: 10px;
+}
+
+.headerMenuItem a:hover{
+  color: #888888;
+}
+
+.middleSize{
+  font-size: 16px;
+}
+
+.headerUtil {
+  display: flex;
+  position: absolute;
+  top: 15px;
+  right: 30px;
+  margin: 0;
+}
+
+#headerMenuProjectBtnList{
+  padding-top: 5px;
+  margin-left: 30px;
+}
+
+#headerMenuProjectBtn{
+  height: 20px;
+  border: 1px solid;
+  border-radius: 4px;
+  padding-top: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.headerSlide{
+  position: relative;
+  width:100%;
+  height:400px;
+  background-position: 50% 50%;
+  background-color: #F0F1E2;
+  margin-top:0px;
+  min-width: 1550px;
+}
+
+/* 펀딩하기 페이지 카테고리 헤더영역  */
+#projectCate{
+  position: relative;
+  width:100%;
+  height:235px;
+  background-position: 50% 50%;
+  margin-top:0px;
+  min-width: 1550px;
+  border-bottom: 1px solid #dadada;
+  margin-bottom: 50px;
+}
+
+.fundingProjectPageTitle{
+  font-family: Noto Sans KR,Nanum Gothic,Malgun Gothic,맑은 고딕,Dotum,돋움,Helvetica,AppleSDGothicNeo,sans-serif;
+  text-align: center;
+  padding-top: 70px;
+  margin-top: 0px;
+  font-weight: 500;
+}
+
+header ul {
+  width:80%;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* 메뉴바 */
+.projectItem{
+  margin-left:20px;
+  margin-bottom: 15px;
+  font-size: 15px;
+  background: none;
+  border-radius:15px;
+  color: #551A8B;
+  font-weight: bold;
+}
+
+.moreItem {
+  font-size:16px;
+}
+
+
+/* 메인 컨테이너 */
+
+.container{
+  width: 1480px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.projectStatusBanner{
+  background-color: #80c72d;
+  max-width: 1480px;
+  height:80px;
+  padding: 10px;
+  color: white;
+  margin-top: 120px;
+}
+
+
+.projectStartBanner{
+ 	max-width: 1480px;
+    height: 200px;
+    text-align: center;
+    padding: 10px;
+    margin: 120px auto 60px;
+    background: url(https://static.wadiz.kr/main/media/discussion-together.28f368d3.jpg) no-repeat 50%/cover;
+}
+
+
+.containerHashTagMenu{
+  display:flex;
+  padding-left: 540px;
+}
+
+.hashTagBtn{
+  width: 100px;
+  border: 1px solid #80c72d;
+  border-radius: 14px;
+  padding: 5px;
+  margin-left: 10px;
+  font-size: 15px;
+  color: #80c72d;
+  text-align: center;
+  cursor: pointer;
+}
+
+.projectWrapper {
+  width: 100%;
+  height: 170px;
+  margin-bottom: 50px;
+}
+
+.projectContent p{
+  font-size: 18px;
+  margin: 0px;
+  width: 300px;
+  color: rgb(61, 61, 61);
+}
+
+.projectContent span{
+  font-size: 16px;
+}
+ 
+.projectInfoBannerHome{
+  min-width: 715px;
+  max-width: 715px;
+  height: 80px;
+  background-color: #FFFFFF;
+  box-shadow: 2px 2px 5px #999;
+  margin: 0 auto;
+  padding: 10px;
+ }
+ 
+ 
+.projectInfoBannerMenu{
+   display: flex;
+ }
+ 
+.projectInfoItemTop{
+   margin-right: 130px;
+   font-size: 20px;
+   color: #254949;
+ }
+ 
+.projectInfoItemBottom{
+    margin-right: 90px;
+    font-size: 16px;
+ }
+ 
+.projectInfoItemBottom a{
+   color: #B4B8BC;
+ }
+ 
+.whiteGrey{
+   color: #D5D6D6;
+ }
+ 
+.centerItemTop{
+   padding-left: 160px;
+   margin: 12px auto 12px
+ }
+ 
+.centerItemBottom{
+   padding-left: 130px;
+   margin: 12px auto 12px;
+ }
+ 
+.projectCard{
+   display: flex;
+   padding-left: 0px;
+   margin-top: 0px;
+   flex-wrap: wrap;
+    width: 1600px;
+  /*  justify-content: space-between; */
+ }
+ 
+.projectContent{
+   width: 300px;
+ }
+ 
+.projectThumbnail{
+   width:300px;
+   height:170px;
+   margin-top: 0px;
+   border-radius: 6px;
+   overflow: hidden;
+ }
+ 
+.projectCardItem{
+   width:300px;
+   height: 250px;
+   margin: 0 40px 0 40px;
+   cursor: pointer;
+}
+
+.projectThumbnailWrapper{
+	width: 300px;
+    height: 170px;
+    overflow: hidden;
+}
+
+.projectThumbnailWrapper img{
+   transition: all 0.2s linear;
+}
+
+.projectThumbnailWrapper:hover img{
+   transition: all 0.2s linear;
+   transform: scale(1.1);
+   border-radius: 6px;
+}
+
+  border: 1px solid #CF3C37;
+}
+
+.projectAchievementRate {
+  color: #00B1B2;
+}
+
+.greyColor{
+  color: #999DA3;
+}
+
+
+/* 로그인 페이지 css*/
+
+#loginHeader {
+  text-align: center;
+  position: relative;
+  padding: 60px 0 20px;
+  box-sizing: border-box;
+}
+
+.loginLogo{
+  font-size:40px; 
+  margin: 0px; 
+  color:#551A8B;
+  text-align: center;
+}
+
+/* 아이디 부분 이메일  */
+.step_url {
+  position: absolute;
+  top: 16px;
+  right: 13px;
+  font-size: 15px;
+  line-height: 18px;
+  color: #8e8e8e;
+}
+
+.loginContainer {
+  margin: 0 auto;
+}
+
+#loginContent {
+  width: 460px;
+  margin: 0 auto;
+}
+
+#loginContent h3{
+  margin: 10px 0 10px 0;
+}
+
+label {
+  cursor: pointer;
+}
+.join {
+  margin: 19px 0 8px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* 인풋 흰색 박스 부분  */
+.ps_box {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 51px;
+  border: solid 1px #dadada;
+  padding: 10px 110px 10px 14px;
+  background: white;
+  box-sizing: border-box;
+}
+
+/* 셀렉트 */
+.sel {
+  width: 100%;
+  height: 29px;
+  font-size: 15px;
+  border: none;
+}
+
+.join_mobile .mobile_area {
+  position: relative;
+  margin-top: 10px;
+  padding: 0 125px 0 0;
+}
+
+/* 실제 인풋 */
+.logininput {
+  /* outline: 1px solid #fca600 !important; */
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  cursor: pointer;
+}
+
+/* 버튼 */
+.btn_primary {
+  color: #fff;
+  border: solid 1px rgba(0, 0, 0, 0.08);
+  background-color: #a435f0;
+}
+
+.btn_primary:hover{
+  background-color: #7325a3;
+  border-color: transparent;
+}
+
+
+.btn_verify {
+  display: block;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+/* 로그인 버튼 */
+
+.btn_type {
+  display: block;
+  width: 100%;
+  padding: 15px 0 15px;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.btn_area {
+  margin: 30px 0 9px;
+}
+
+#box_space {
+  margin-top: 10px;
+}
+
+#loginFooter {
+  text-align: center;
+  font-size: 15px;
+  color: #551A8B;
+  padding-top: 40px;
+  padding-bottom: 10px;
+}
+
+.findLoginInfo {
+  float:right;
+  font-size: 16px;
+  color: #a435f0;
+  margin-left:15px;
+}
+
+.findLoginInfo:hover{
+  color: #7325a3;
+}
+
+.error{
+  font-size: 15px;
+}
+
+/* 로그인, 회원가입 팝업 페이지 */
+.loginFormContainer{
+  margin: 0 auto;
+}
+
+/* 다음 주소 api */
+.d_form{
+  margin: 0.2em 0;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  box-shadow: inset 0.1em 0.1em 0.15em rgb(0 0 0 / 10%)
+}
+
+.d_btn {
+  display: inline-block;
+  padding: 0.5em 1em;
+  margin: 0.4em 0.15em;
+  border: 1px solid #ccc;
+  border-color: #dbdbdb #d2d2d2 #b2b2b2 #d2d2d3;
+  cursor: pointer;
+  color: #464646;
+  border-radius: 0.2em;
+  vertical-align: middle;
+  font-size: 16px;
+  line-height: 1.25em;
+  background-image: -webkit-gradient(linear,left top,left bottom,from(#fff),to(#f2f2f2));
+}
+
+.d_btn:hover {
+  color: #464646;
+  text-decoration: none;
+  background-image: -webkit-gradient(linear,left top,left bottom,from(#fff),to(#e5e5e5));
+}
+
+/* 회원가입 */
+.joinContainer h3{
+  margin: 10px 0 10px 0;
+}
+
+.joinContainer{
+  margin: 0 auto;
+  padding: 0 80px;
+  max-width: 460px;
+  min-width: 290px;
+}
+
+#joinFooter{
+  text-align: center;
+}
+
+/* input, button 타입 모음 */
+
+.fundingHashTagBtn {
+    width: 100px;
+    border: 1px solid #dadada;
+    border-radius: 14px;
+    padding: 5px;
+    margin-left: 10px;
+    font-size: 15px;
+    color: #777;
+    text-align: center;
+    cursor: pointer;
+}
+
+.fundingHashTagBtn .on a{
+	background-color: #fff;
+    border: 2px solid #80c72d;
+    color: #80c72d;
+}
+
+.noneBtn{
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 10px 0 10px 0;
+  margin-left: 20px;
+  font-size: 16px;
+}
+
+.noneBtn:hover {
+  color: #888888;
+}
+
+.myPageBtn{
+  border: none;
+  background: none;
+  color:#286DB4;
+  cursor: pointer;
+  padding: 10px 0 10px 0;
+  margin-left: 20px;
+  font-size: 16px;
+}
+
+.myPageBtn:hover {
+  color: #4285F4;
+}
+
+input[type="radio"] {
+  margin: 10px;
+  /* display: none; */
+}
+
+input[type="radio"] + label {
+  color: #777777;
+  min-width: 76px;
+  border: 1px solid #d9d9d9;
+  padding: 3px 14px 3px 14px;
+  font-size: 13px;
+  line-height: 20px;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+}
+
+input[type="radio"]:checked + label {
+  border-color: black;
+}
+
+.blackBtn {
+  background-color: black;
+  color: white;
+  padding: 0 20px 0 20px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.blackBtn:hover {
+  background-color: #384048;
+}
+
+.btnOne {
+  padding: 7px 5px 5px 5px;
+  border-radius: 10%;
+}
+
+.btnOne:hover {
+  border: 1px solid black;
+}
+
+.whiteBtn {
+  border: 1px solid #d9d9d9;
+  background: none;
+  
+}
+
+.whiteBtn:hover {
+  box-shadow: 2px 2px 5px #999;
+  cursor: pointer;
+}
+
+.whiteBtn:disabled {
+  border: none;
+  color : grey;
+  background: none;
+  cursor: none;
+}
+
+.whiteBtn:active {
+  border: 1px solid black;
+}
+
+.mainPageBtn {
+  padding: 5px 15px 5px 15px;
+  border-radius: 10%;
+  margin: 3px;
+}
+
+.paddingBtn1 {
+	margin-top: 15px;
+}
+
+.leftMenuBtn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 10px 0 10px 0;
+}
+
+.leftMenuBtn:hover {
+  border-bottom: 1px solid #232a32;
+}
+
+.leftMenuBtn:active {
+  border-bottom: 1px solid #232a32;
+}
+
+.leftMenuTitle {
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  background: none;
+}
+
+.leftbtn{
+  float: right;
+}
+
+.IndigoBtn {
+    font-weight: 400;
+    background-color: #80c72d;
+    border: none;
+    color: white;
+    padding: 0 20px 0 20px;
+    font-size: 15px;
+    cursor: pointer;
+    height: 30px;
+    font-family: '맑은고딕';
+}
+
+#container{
+  width: 100%;
+  height: 700px;
+}
+
+
+
+/*  관리자 페이지 레이아웃 */
+
+.adminContainerWrapper{
+  display: flex;
+}
+
+
+.adminContainerLeft {
+  width: 140px;
+  height: 1200px;
+  background-color: #353535;
+  margin-top: 0px;
+}
+
+.adminContainerRight{
+  margin: 0 auto;
+}
+
+.adminLocationArea{
+  height: 100px;
+  width: 100%;
+  background-color: white;
+  box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%), 0 1px 5px 0 rgb(0 0 0 / 20%);
+}
+
+
+.adminHeaderWrapper{
+  background-color: #CECECE
+}
+
+.adminHeaderColor{
+  border-color: #80c72d;
+}
+
+.adminHeaderWrapper .adminHeaderContaniner{
+  height: 60px;
+  display:flex;
+}  
+
+.adminHeaderContaniner{
+  margin: 0 auto;
+  padding: 0 40px;
+  max-width: 1440px;
+}
+
+
+li.adminMenuItem a:hover li.adminMenuItem a:focus {
+  color: #CECECE;
+}
+
+.adminContainerRightWrapper{
+  width: 100%;
+}
+
+.adminContainerRight{
+  margin: 0 auto;
+}
+
+
+.adminLocationArea{
+  height: 40px;
+  width: 100%;
+  padding: 20px 0 0 20px;
+  border-bottom: 1px solid #dadada;
+  font-size: 18px;
+  text-align: center;
+  color: #777;
+}
+
+.adminContainerContent{
+  display: flex;
+}
+
+.adminLeftMenu {
+  padding-left: 30px;
+}
+
+.adminContentInfoList{
+  display: flex;
+  font-size: 18px;
+  padding-top: 20px;
+  justify-content: space-between;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-bottom: 0px;
+  padding-top: 10px;
+}
+
+.blueItem {
+  color: #286DB4;
+}
+
+.adminHeaderTitle{
+  color: #551A8B;
+  font-size: 18px;
+  margin-top: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+
+.adminMenuItem{
+  margin-bottom: 30px;
+  font-size: 18px;
+  color: inherit;
+  color: white;
+}
+
+.adminMenuItem a {
+  color: inherit;
+  color: white;
+  font-weight: 300;
+  font-size: 15px;
+}
+
+.adminMenuItem a:hover {
+  color: inherit;
+  color: #CECECE;
+}
+
+/* 펀딩 관리자 페이지 */
+/* 관리자 메인 페이지 카드 폭 */
+.fundingAdminContainerLeftContentArea{
+  width: 800px;
+  margin: 0 auto;
+}
+
+/* 관리자 페이지 결제현황, 문의관리 페이지 카드 폭 */
+.fundingAdminContainerLeftContentAreaWide {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.fundingAdminContainerRightContentArea{
+  width: 400px;
+  margin: 0 auto;
+}
+
+.fundingAdminContainerContentHeader{
+  border: 1px olid #dde2e6;
+  border-radius: 12px;
+  box-shadow: 3px 3px 6px 0 rgb(33 37 41 / 13%);
+  background-color: #fff;
+  margin: 50px auto 0 0;
+}
+
+.adminContentTitle {
+  padding: 10px 50px 0 20px;
+  font-size: 18px;
+}
+
+.currentSalesStatusTitle {
+  text-align: center;
+  padding-top: 20px;
+  margin-bottom: 10px;
+}
+
+#currentSalesStatus{
+  text-align: center;
+  margin-top: 10px;
+}
+
+#currentSalesStatus h1{
+    text-align: center;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.adminContentinfoUl{
+    display: flex;
+    padding-left: 100px;
+    color: grey;
+}
+
+.adminContentInfoItem {
+    margin-right: 20px;
+    font-size: 18px;
+}
+
+
+/* 관리자 메인 페이지  */
+/* 테이블 */
+#fundingAdminMainArea {
+  float: right;
+  width: 800px;
+  margin: auto;
+}
+
+.fundingAdminMainContent {
+  margin: 20px;
+}
+
+
+/* table */
+.fundingAdmintableContent table {
+  border-collapse: collapse;
+  border: 1px solid #d9d9d9;
+}
+
+.fundingAdmintableContent th,td {
+  padding: 10px 5px 10px 5px;
+  font-size: 16px;
+}
+
+
+.fundingAdmintableContent td {
+  border-bottom: 1px solid #d9d9d9;
+  font-size: 15px;
+  text-align: center;
+}
+
+.fundingAdmintableContent thead {
+  background-color: #f9f9f9;
+  border: 1px solid #d9d9d9;
+}
+
+.fundingAdmintableContent tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.fundingAdmintableContent {
+
+}
+
+.fundingAdminMainAreaCenter {
+  width: 800px;
+  margin: auto;
+}
+
+#fundingAdminInventoryManageList input {
+  width: 50px;
+}
+
+.pageBtn {
+  border: 1px solid #d9d9d9;
+  background: none;
+  
+}
+
+.pageBtn:hover {
+  box-shadow: 2px 2px 5px #999;
+  cursor: pointer;
+}
+
+.pageBtn:disabled {
+  border: none;
+  color : grey;
+  background: none;
+  cursor: none;
+}
+
+.pageBtn:active {
+  border: 1px solid black;
+}
+
+.paging {
+  margin-right: 10px;
+}
+
+.pageNow {
+  color: #e71c2b;
+  border: 1px solid #d9d9d9;
+}
+
+/* 마이페이지  */
+
+.myPageUserInfo{
+  font-weight: 500;
+  font-size: 24px;
+  padding-bottom: 10px;
+}
+
+.myPageContainerLeft{
+  width: 200px;
+  height: 900px;
+  background-color: #3AABAA;
+  margin-top: 0px;
+}
+
+.myPageLocationArea{
+  height: 40px;
+  width: 100%;
+  padding: 20px 0 0 20px;
+  border-bottom: 3px solid #DFE1E6;
+  font-size: 18px;
+  text-align: center;
+  margin-top: 0px;
+}
+
+.myPageLeftMenu {
+  padding-left: 20px;
+  margin-top: 80px;
+}
+
+.myPageMenuItem a{
+  color: inherit;
+  color: white;
+}
+
+.myPageMenuItem{
+  margin-bottom: 30px;
+  font-size: 18px;
+}
+
+.adminContainerContentArea {
+  width: 650px;
+  margin: 0 auto;
+}
+
+.adminContainerContentHeader{
+  border: 1px solid #dde2e6;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px 0 rgb(33 37 41 / 11%);
+  background-color: #fff;
+  margin: 50px auto 0 0;
+}
+
+.myPageHeaderMenu{
+  display: flex;
+  padding-left: 60px;
+}
+
+.myPageHeaderMenuItem{
+  margin: 0 50px 0 100px;
+  color: #21AB33;
+}
+
+.myPageHeaderMenuItemTitle{
+  margin: 0 50px 0 50px;
+}
+
+.modifyMmeberForm{
+  border: 1px solid #dde2e6;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px 0 rgb(33 37 41 / 11%);
+  background-color: #fff;
+  margin: 50px auto 0 0;
+  padding-bottom: 50px;
+}
+
+.modifyMmeberEnd{
+  margin-top: 30px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.modifyMmeberForm h2{
+  border-bottom: 1px solid black;
+}
+
+.modifyMmeberForm td{
+  color: #333333;
+  font-size: 16px;
+}
+
+#prodItems tr {
+  margin-bottom: 15px;
+}
+
+.modifyMmeberForm label{
+  font-size: 16px;
+}
+
+.modifyMmeberForm input{
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+input[readonly] {
+  background-color: #F5F6F7;
+  color: #585858;
+}
+
+.addr_box{
+  display: block;
+  position: relative;
+  border: solid 1px #dadada;
+  padding: 10px 110px 10px 14px;
+  background: white;
+  box-sizing: border-box;
+}
+
+.addrArea{
+  display: flex;
+  margin-left: 53px;
+  color: #333333;
+  margin-top: 10px;
+}
+
+#prodItems select, textarea{
+  border: 1px solid #DBDBDB;
+  font-size: 16px;
+  padding: 10px;
+  color: #333333;
+}
+
+
+/* footer */
+#footer {
+  position: relative;
+  bottom: 0;
+  padding: 0;
+}
+
+#footer .infoArea .footerMenuArea,
+.footerArea {
+  width: 1480px;
+  margin: 0 auto;
+  overflow: auto;
+}
+
+.footerLeft {
+  font-size: 50px;
+  font-weight: 900;
+  float: left;
+}
+
+.footerRight {
+  position: relative;
+  float: right;
+  width: 820px;
+}
+
+.footerLeft .footerRight {
+  margin: 30px;
+}
+
+.footerMenuArea .footerMenu > li {
+  display: inline-block;
+  color: #d3d3d5;
+}
+
+
+.footerMenu {
+  padding: 10px 0 10px 10px;
+  margin: 0;
+  margin-right: 11px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.footerMenu button {
+  font-size: 12px;
+  color: white;
+  background-color: #384048;
+  border-color: white;
+}
+
+.footerMenuArea {
+  border-bottom: 1px solid #384048;
+  background-color: #232a32;
+}
+
+.footerList{
+  font-size:18px;
+}
+
+img {
+  margin-top: 30px;
+}
+
+.imgMargin {
+  margin-top: 0;
+}
+
+.COPYRIGHT {
+  font-weight: bold;
+}

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="customer_Center">
+	<!-- 회원현황 -->
+	<select id="cntNew" resultType="int">
+		SELECT count(*) FROM USERS WHERE USER_JOINDATE BETWEEN SYSDATE-14 AND
+		SYSDATE
+	</select>
+	<select id="cntTot" resultType="int">SELECT count(*) FROM USERS</select>
+	<select id="cntOut" resultType="int">SELECT count(*) FROM USERS WHERE
+		USER_TYPE = '탈퇴'</select>
+	<!-- 프로젝트 현황 -->
+	<select id="waitProj" resultType="int">
+		SELECT count(*) FROM PROJECT WHERE PRO_STATUS ='신청'
+	</select>
+	<select id="ingProj" resultType="int">
+		SELECT count(*) FROM PROJECT WHERE PRO_STATUS ='진행'
+	</select>
+	<select id="endProj" resultType="int">
+		SELECT count(*) FROM PROJECT WHERE PRO_STATUS ='완료'
+	</select>
+	<!-- 매출현황 -->
+	<!-- 30일안의 매출 -->
+	<select id="cntSales" resultType="int">
+		SELECT NVL(SUM(PAYMENT_PRICE),0)*0.2 FROM PAYMENT WHERE PAYMENT_REGDATE
+		BETWEEN SYSDATE-30 AND SYSDATE
+	</select>
+	<!-- 결제완료된 건수 -->
+	<select id="cntPayment" resultType="int">
+		SELECT count(*) FROM ORDERS WHERE PAYMENT_STATUS = '결제완료'
+	</select>
+	<!-- 반품완료된 건수 -->
+	<select id="cntCancel" resultType="int">
+		SELECT count(*) FROM ORDER_DETAIL WHERE ORDER_STATUS = '반품완료'
+	</select>
+	<!-- -->
+	<!-- 회원리스트 -->
+	<select id="getUserList" parameterType="users"
+		resultType="users">
+		SELECT * FROM (SELECT ROWNUM RNUM, u.* FROM (SELECT * FROM USERS ORDER
+		BY USER_NO) u) WHERE RNUM BETWEEN #{begin} and #{end}
+		<if test="searchCondition == 'USER_ID'">AND USER_ID LIKE '%${searchKeyword}%'</if>
+		<if test="searchCondition == 'USER_NAME'">AND USER_NAME LIKE '%${searchKeyword}%'</if>
+		<if test="searchCondition == 'USER_PHONE'">AND USER_PHONE LIKE '%${searchKeyword}%'</if>
+		<if test="searchCondition == 'USER_EMAIL'">AND USER_EMAIL LIKE '%${searchKeyword}%'</if>
+		<if test="searchCondition == 'USER_GENDER'">AND USER_GENDER LIKE '%${searchKeyword}%'</if>
+		<if test="searchCondition == 'USER_ADDRESS'">AND USER_ADDRESS LIKE '%${searchKeyword}%'</if>
+		<if test="searchCondition == 'USER_TYPE'">AND USER_TYPE LIKE '%${searchKeyword}%'</if>
+		ORDER BY USER_NO
+	</select>
+	<!-- 프로젝트 리스트 -->
+	<select id="getProjectList" parameterType="project"
+		resultType="project">
+		SELECT * FROM (SELECT ROWNUM RNUM, p.* FROM (SELECT * FROM PROJECT
+		ORDER BY PRO_NO ) p ) WHERE RNUM BETWEEN #{begin} and #{end}
+		<if test="searchCondition == 'PRO_NO'">AND PRO_NO LIKE '%${searchKeyword}%'</if>
+		<if test="searchCondition == 'PRO_TITLE'">AND PRO_TITLE LIKE '%${searchKeyword}%'</if>
+		<if test="pro_status == '완료'">AND PRO_STATUS = '완료'</if>
+		<if test="pro_status == '신청'">AND PRO_STATUS = '신청'</if>
+		<if test="pro_status == '중단'">AND PRO_STATUS = '중단'</if>
+		<if test="pro_status == '반려'">AND PRO_STATUS = '반려'</if>
+		<if test="pro_status == '진행'">AND PRO_STATUS = '진행'</if>
+		ORDER BY PRO_NO 
+	</select>
+	<!-- Customer_Center 리스트 불러오기 -->
+	<select id="CenterList" parameterType="customerCenter"
+		resultType="customerCenter">
+		SELECT * FROM (SELECT ROWNUM RNUM, c.* FROM (SELECT * FROM
+		CUSTOMER_CENTER ORDER BY CUSTOMER_NO DESC) c ) WHERE RNUM BETWEEN
+		#{begin} and #{end}
+		<if test="searchCondition != null and searchKeyword == null">AND CUSTOMER_CATEGORY = #{searchCondition}</if>
+		<if test="searchCondition != null and searchKeyword != null">
+			AND CUSTOMER_CATEGORY = #{searchCondition} AND CUSTOMER_SUBJECT LIKE
+			'%'||#{searchKeyword}||'%'
+		</if>
+		<if test="searchCondition == null and searchKeyword != null">
+			AND CUSTOMER_SUBJECT LIKE '%'||#{searchKeyword}||'%'
+		</if>
+		ORDER BY CUSTOMER_REGDATE DESC
+	</select>
+	<!-- 고객센터 게시판 글쓰기 -->
+	<insert id="insertNotice" parameterType="customerCenter">
+		INSERT INTO CUSTOMER_CENTER VALUES
+		(Customer_Center_seq.nextval,#{user_no},#{customer_subject},#{customer_content},#{customer_image},sysdate,#{customer_category})
+	</insert>
+	<!-- 게시물상세 보기 -->
+	<select id="detailNotice" parameterType="customerCenter"
+		resultType="customerCenter">
+		SELECT * FROM CUSTOMER_CENTER WHERE CUSTOMER_NO = #{customer_no}
+	</select>
+	<!-- 공지사항 수정 -->
+	<update id="updateNotice" parameterType="customerCenter">
+		UPDATE CUSTOMER_CENTER SET CUSTOMER_SUBJECT = #{customer_subject},
+		CUSTOMER_CONTENT = #{customer_content},
+		<if test="customer_image != null">CUSTOMER_IMAGE = #{customer_image}</if>
+		WHERE CUSTOMER_NO = #{customer_no}
+	</update>
+	<!-- 공지사항 삭제 -->
+	<delete id="deleteNotice" parameterType="customerCenter">
+		DELETE FROM CUSTOMER_CENTER WHERE CUSTOMER_NO = #{customer_no}
+	</delete>
+	<!-- 프로젝트 상세 보기 -->
+	<select id="getProj" parameterType="project"
+		resultType="project">SELECT * FROM PROJECT WHERE PRO_NO = #{pro_no}</select>
+	<!-- 여기 추가됨!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+	<!-- 금일 매출 현황과 건수 -->
+	<select id="todaySale" resultType="HashMap">
+		SELECT COUNT(*) count, NVL(SUM(p.PAYMENT_PRICE),0) todaySum FROM ORDERS o
+		,PAYMENT p WHERE o.ORDER_NO = p.ORDER_NO AND o.PAYMENT_STATUS = '결제완료'
+		AND TO_CHAR(p.PAYMENT_REGDATE,'yyyy-mm-dd') =
+		TO_CHAR(SYSDATE,'yyyy-mm-dd')
+	</select>
+	<!-- 기간별 매출금액 건수 -->
+	<select id="datePick" parameterType="Map" resultType="HashMap">
+		SELECT COUNT(*) count, NVL(SUM(p.PAYMENT_PRICE),0) saleSum FROM ORDERS
+		o, PAYMENT p WHERE o.ORDER_NO = p.ORDER_NO AND o.PAYMENT_STATUS =
+		'결제완료'
+		<if test="startDate != null and endDate != null">
+			AND TO_CHAR(p.PAYMENT_REGDATE,'yyyy/mm/dd') BETWEEN #{startDate} and
+			#{endDate}
+		</if>
+	</select>
+	<!-- 기간별 취소금액 건수 -->
+	<select id="dateCancel" parameterType="map" resultType="HashMap">
+		SELECT COUNT(*) count, NVL(SUM(p.PAYMENT_PRICE),0) saleSum FROM
+		ORDER_DETAIL d, PAYMENT p WHERE d.ORDER_NO = p.ORDER_NO AND
+		d.ORDER_STATUS = '반품완료'
+		<if test="startDate != null and endDate != null">
+			AND TO_CHAR(p.PAYMENT_REGDATE,'yyyy/mm/dd') BETWEEN #{startDate} and
+			#{endDate}
+		</if>
+	</select>
+	<!-- 기간별 많이 판매한 프로젝트 -->
+	<select id="rankProj" parameterType="map" resultType="HashMap">
+		SELECT j.PRO_NO,j.user_no, sum(p.payment_price) total, j.pro_title,
+		j.PRO_HASHTAG, j.PRO_STATUS FROM orders o INNER JOIN payment p ON
+		o.ORDER_NO = p.ORDER_NO INNER JOIN project j ON o.PRO_NO = j.PRO_NO
+		WHERE o.PAYMENT_STATUS = '결제완료'
+		<if test="startDate != null and endDate != null">
+			AND TO_CHAR(p.PAYMENT_REGDATE,'yyyy/mm/dd') BETWEEN #{startDate} and
+			#{endDate}
+		</if>
+		GROUP BY j.pro_no, j.user_no, j.pro_title, j.PRO_STATUS, j.PRO_HASHTAG
+		ORDER BY 3 DESC
+	</select>
+	<!-- 기간별 많이 참여한 유저 -->
+	<select id="rankUser" parameterType="map" resultType="HashMap">
+		SELECT u.user_no, u.user_id, sum(p.payment_price) total, u.user_name,
+		u.user_phone, u.user_email FROM orders o INNER JOIN payment p ON
+		o.order_no = p.ORDER_NO INNER JOIN users u ON o.user_no = u.user_no
+		WHERE o.PAYMENT_STATUS = '결제완료'
+		<if test="startDate != null and endDate != null">
+			AND TO_CHAR(p.PAYMENT_REGDATE,'yyyy/mm/dd') BETWEEN #{startDate} and
+			#{endDate}
+		</if>
+		GROUP BY u.user_no, u.user_id, u.user_name, u.user_phone, u.user_email
+		ORDER BY 3 DESC
+	</select>
+	<!-- 여자가 구매한 매출 금액 -->
+	<select id="womanTotal" parameterType="map" resultType="HashMap">
+		SELECT sum(p.payment_price) womanTotal FROM orders o INNER JOIN
+		payment p ON o.order_no = p.ORDER_NO INNER JOIN users u ON o.user_no =
+		u.USER_NO WHERE o.PAYMENT_STATUS = '결제완료'
+		<if test="startDate != null and endDate != null">
+			AND TO_CHAR(p.PAYMENT_REGDATE,'yyyy/mm/dd') BETWEEN #{startDate} and
+			#{endDate}
+		</if>
+		AND u.user_gender = '여자'
+	</select>
+	<!-- 카테고리 별 결제건수, 매출, 판매된 수량 -->
+	<select id="category" parameterType="map" resultType="HashMap">
+		SELECT g.PRO_CATENAME category, count(o.order_no) cateCnt,
+		sum(p.PAYMENT_PRICE) cateSum, sum(d.ORDER_EA) cateEA FROM orders o
+		INNER JOIN (SELECT * FROM project p INNER JOIN project_category c ON
+		p.pro_cateno = c.pro_cateno) g ON o.PRO_NO= g.PRO_NO INNER JOIN
+		order_detail d ON o.ORDER_NO = d.ORDER_NO INNER JOIN payment p ON
+		o.ORDER_NO = p.ORDER_NO WHERE o.PAYMENT_STATUS = '결제완료'
+		<if test="startDate != null and endDate != null">
+			AND TO_CHAR(p.PAYMENT_REGDATE,'yyyy/mm/dd') BETWEEN #{startDate} and
+			#{endDate}
+		</if>
+		GROUP BY g.PRO_CATENAME ORDER BY 3 DESC
+	</select>
+	<!-- 총프로젝트 수 -->
+	<select id="cntProj" resultType="int">SELECT COUNT(*) FROM PROJECT</select>
+	<!-- 총 공지사항 수 -->
+	<select id="cntNotice" resultType="int">SELECT COUNT(*) FROM
+		CUSTOMER_CENTER</select>
+</mapper>

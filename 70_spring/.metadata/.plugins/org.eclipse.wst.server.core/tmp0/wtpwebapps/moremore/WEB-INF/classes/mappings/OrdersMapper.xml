@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ordersDAO">
+	
+	<!-- 굿즈 한개 가져오기 -->
+	<select id="getOneGoods" parameterType="goods" resultType="goods">
+		SELECT *
+		  FROM(SELECT ROWNUM GOODS_RNUM, A.*
+		        FROM (SELECT * FROM GOODS
+		               WHERE PRO_NO = #{pro_no})A)
+		 WHERE GOODS_RNUM = #{goods_rnum}
+	</select>
+	
+	<select id="getGoodsOrderEaList" parameterType="project" resultType="goods">
+		SELECT G.PRO_NO PRO_NO, G.GOODS_NO GOODS_NO, SUM(ORDER_EA) ORDER_EA FROM ORDERS O INNER JOIN ORDER_DETAIL D ON O.ORDER_NO = D.ORDER_NO INNER JOIN GOODS G ON D.GOODS_NO = G.GOODS_NO WHERE G.PRO_NO = #{pro_no} AND (ORDER_STATUS = '주문완료' OR ORDER_STATUS = '구매확정') GROUP BY G.PRO_NO, G.GOODS_NO ORDER BY GOODS_NO
+	</select>
+	
+
+</mapper>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="qna">
+	<!-- 리스트 카운터 조회 -->
+	<select id="qnaListCount" parameterType="qna" resultType="int">
+		SELECT COUNT(*) AS Allcount from (SELECT ROWNUM as rnum, x.* FROM (SELECT q.QNA_NAME, u.user_name, TO_CHAR(q.QNA_REGDATE,'YYYY-MM-DD') AS QNA_REGDATE, q.QNA_STATUS FROM QNA q, USERS u WHERE q.user_no = u.user_no ORDER BY q.QNA_NO DESC) x) ORDER BY rnum
+	</select>
+
+	<!-- 신규 문의내역 - 펀딩관리자 메인  -->
+	<select id="newInquiryHistory" parameterType="qna" resultType="qna">
+		<![CDATA[
+		SELECT * FROM 
+		(SELECT ROWNUM rnum, x.* FROM 
+			(SELECT q.QNA_NAME, u.user_name, TO_CHAR(q.QNA_REGDATE,'YYYY-MM-DD') AS QNA_REGDATE 
+			FROM QNA q, USERS u
+			WHERE q.user_no = u.user_no
+			AND q.QNA_REGDATE = '2021-11-22'
+			ORDER BY q.QNA_NO DESC) x)
+		WHERE rnum <= 5
+		]]>
+	</select>
+	
+	<!--  문의 관리 리스트 - 펀딩관리자 문의관리 페이지   -->
+	<select id="fundingAdminInquiryManage" parameterType="map" resultType="qna">
+	<![CDATA[
+	SELECT * FROM 
+	 	(SELECT ROWNUM as rnum, x.* FROM 
+	 		(SELECT q.QNA_NAME, u.user_name, TO_CHAR(q.QNA_REGDATE,'YYYY-MM-DD') AS QNA_REGDATE, q.QNA_STATUS
+	 			FROM QNA q, USERS u
+	 		WHERE q.user_no = u.user_no
+	 		ORDER BY q.QNA_NO DESC) x)
+	 	WHERE rnum BETWEEN #{begin} AND #{end}
+		]]>
+	</select>
+	
+	
+	
+	<!-- 문의 관리 상세 페이지 - 펀딩관리자 문의관리 페이지  -->
+	<select id="fundingAdminInquiryManageOne" parameterType="qna" resultType="qna">
+		<![CDATA[
+		SELECT * FROM 
+			(SELECT * FROM 
+				(SELECT ROWNUM as rnum, x.* FROM 
+					(SELECT q.QNA_NO, q.QNA_NAME,q.QNA_CONTENT, u.user_name, TO_CHAR(q.QNA_REGDATE,'YYYY-MM-DD') AS QNA_REGDATE, q.QNA_STATUS, u.USER_EMAIL, u.USER_PHONE, q.QNA_ANSWER_CONTENT, q.QNA_ANSWER_REGDATE
+						FROM QNA q, USERS u
+						WHERE q.user_no = u.user_no
+						ORDER BY q.QNA_NO DESC) x)
+		WHERE rnum BETWEEN 1 AND 10)
+		WHERE rnum = #{rnum}
+		]]>
+	</select>
+	
+	
+	<!--  관리자 답변 등록 (UPDATE)  -->
+	<update id="fundingAdminQnaAnswer" parameterType="qna">
+		UPDATE QNA SET QNA_STATUS = '답변완료', QNA_ANSWER_CONTENT = #{qna_content}, QNA_ANSWER_REGDATE = TO_DATE(sysdate ,'YYYY-MM-DD') WHERE QNA_NO = #{qna_no}
+	</update>
+	
+	
+	<!-- 은해누나 -->
+	<!-- 해당 프로젝트에 대한 문의글 조회 -->
+	<select id="getQnaList" parameterType="map" resultType="qna">
+			 SELECT * FROM 
+				(SELECT ROWNUM RNUM, B.*
+	      			FROM (SELECT U.USER_NAME, P.PRO_TITLE, Q.*
+	                        FROM USERS U INNER JOIN QNA Q 
+	                                ON U.USER_NO = Q.USER_NO
+	                                INNER JOIN PROJECT P
+	                                ON Q.PRO_NO = P.PRO_NO
+	                         WHERE P.PRO_NO = #{pro_no}
+				      ORDER BY QNA_NO DESC)B)
+			 WHERE RNUM BETWEEN #{begin} AND #{end}
+	</select>
+	
+	<!-- 한개의 QnA조회 -->
+	<select id="getOneQna" parameterType="qna" resultType="qna">
+			SELECT U.USER_NAME, P.PRO_TITLE, Q.*
+			FROM USERS U INNER JOIN QNA Q 
+			        ON U.USER_NO = Q.USER_NO
+			        INNER JOIN PROJECT P
+			        ON Q.PRO_NO = P.PRO_NO
+			WHERE QNA_NO = #{qna_no}
+	</select>
+	
+	<!-- 해당 프로젝트에 대한 문의글 총 갯수 조회 -->
+	<select id="getQnaListCnt" parameterType="String" resultType="int">
+			 SELECT COUNT(*)
+			   FROM QNA
+			  WHERE PRO_NO = #{pro_no}
+	</select>
+	
+	<insert id="insertQna" parameterType="qna">
+		INSERT INTO QNA
+		        (QNA_NO, USER_NO, PRO_NO, QNA_NAME, QNA_CONTENT,
+		         QNA_REGDATE, QNA_SECRET, QNA_STATUS)
+		VALUES (QNA_SEQ.NEXTVAL, #{user_no}, #{pro_no}, #{qna_name}, #{qna_content},
+				SYSDATE, #{qna_secret}, '답변예정')	
+	</insert>
+
+	<delete id="deleteQna" parameterType="qna">
+		DELETE QNA WHERE QNA_NO = #{qna_no}
+	</delete>
+	<update id="updateQna" parameterType="qna">
+		UPDATE QNA SET
+		    QNA_NAME = #{qna_name},
+		    QNA_CONTENT = #{qna_content},
+		    QNA_REGDATE = SYSDATE
+		WHERE QNA_NO = #{qna_no}
+	</update>
+	
+
+</mapper>

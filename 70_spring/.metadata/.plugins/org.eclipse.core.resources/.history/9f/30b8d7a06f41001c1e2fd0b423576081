@@ -1,0 +1,18 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>공지사항</title>
+</head>
+<body>
+	<div class="tabContainer">
+		<span class="tabMenu">전체보기</span>
+		<span class="tabMenu">공지사항</span>
+		<span class="tabMenu">FAQ</span>
+
+	
+	</div>
+</body>
+</html>

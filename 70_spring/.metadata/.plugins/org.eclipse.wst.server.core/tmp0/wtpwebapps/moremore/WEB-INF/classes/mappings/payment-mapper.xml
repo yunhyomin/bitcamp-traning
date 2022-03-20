@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="payment">
+
+	<!-- 이번주 판매건수/ 판매금액 -->
+	<select id="homeSalesRelatedStatus" parameterType="paymentData" resultType="paymentData">
+		<![CDATA[
+		SELECT SUM(PAYMENT_PRICE) AS WEEKLY_SALES_AMOUNT, COUNT(*) AS WEEKLY_SALES_NUMBER_OF_CASES 
+		FROM PAYMENT
+		WHERE PAYMENT_REGDATE >= TO_DATE('2021-11-07','YYYY-MM-DD')
+		AND PAYMENT_REGDATE <= TO_DATE('2021-11-13','YYYY-MM-DD')
+		]]>
+	</select>
+	
+	<!-- 이번달 판매건수/ 판매금액 -->
+	<select id="homeSalesRelatedStatusMonthly" parameterType="paymentData" resultType="paymentData">
+		<![CDATA[
+		SELECT SUM(PAYMENT_PRICE) AS MONTHLY_SALES_AMOUNT, COUNT(*) AS MONTHLY_SALES_NUMBER_OF_CASES 
+		FROM PAYMENT 
+		WHERE PAYMENT_REGDATE >= TO_DATE('2021-11-01','YYYY-MM-DD')
+		AND PAYMENT_REGDATE <= TO_DATE('2021-11-30','YYYY-MM-DD')
+		]]>
+	</select>
+	
+	<select id="homeTotlaSalesStatus" parameterType="payment" resultType="payment">
+		SELECT SUM(PAYMENT_PRICE) AS PAYMENT_PRICE 
+		FROM PAYMENT
+		WHERE PAYMENT_REGDATE = TO_DATE('2021-11-13','YYYY-MM-DD')
+	</select>
+	
+	<!-- 최근 거래내역 - 펀딩관리자 메인  -->
+	<select id="homeRecentTransaction" parameterType="ordersPayDataVO" resultType="ordersPayDataVO">
+		<![CDATA[
+		SELECT * FROM 
+		(SELECT ROWNUM rnum, x.* FROM 
+			(SELECT TO_CHAR(o.ORDER_DATE,'YYYY-MM-DD') AS ORDER_DATE, o.USER_NO, p.PAYMENT_PRICE, p.PAYMENT_TYPE, o.PAYMENT_STATUS, o.PAYMENT_DELIVERY_STATUS
+			FROM ORDERS o, PAYMENT p 
+			WHERE o.ORDER_NO = p.ORDER_NO
+			ORDER BY o.ORDER_DATE DESC) x)
+		WHERE rnum <= 5
+		]]>
+	</select>
+	
+	
+	<!-- 금일 매출 현황 -->
+	<select id="homeCurrentSalesStatus" parameterType="paymentData" resultType="paymentData">
+		SELECT SUM(PAYMENT_PRICE) AS CURRENT_SALES_STATUS, COUNT(*) AS CURRENT_SALES_NUMBER_OF_CASES 
+		FROM PAYMENT
+		WHERE PAYMENT_REGDATE = TO_DATE('2021-11-13','YYYY-MM-DD')	
+	</select>
+	
+	<!--  주문관리 리스트 총 갯수  -->
+	<select id="paymentListCount" parameterType="paymentData" resultType="int">
+		SELECT COUNT(*) AS Allcount from (SELECT ROWNUM as rnum, x.* FROM (SELECT g.GOODS_NO, g.GOODS_TITLE, g.GOODS_PRICE, g.GOODS_STOCK FROM GOODS g, PROJECT p WHERE g.PRO_NO = p.PRO_NO AND p.COMPANY_NO = '4' ORDER BY g.PRO_NO DESC) x) ORDER BY rnum
+	</select>
+	
+	<!--  주문관리 페이지 리스트  -->
+	<select id="fundingAdminPaymentStatus" parameterType="map" resultType="ordersPayDataVO">
+		<!--  <![CDATA[  -->
+		SELECT * FROM (SELECT ROWNUM rnum, x.* FROM (SELECT o.ORDER_NO, TO_CHAR(o.ORDER_DATE,'YYYY-MM-DD') AS ORDER_DATE, o.USER_NO, p.PAYMENT_PRICE, p.PAYMENT_TYPE, o.PAYMENT_STATUS, o.PAYMENT_DELIVERY_STATUS, p.PAYMENT_BANKNAME, od.ORDER_STATUS FROM ORDERS o, PAYMENT p, ORDER_DETAIL od WHERE o.ORDER_NO = p.ORDER_NO AND o.ORDER_NO = od.ORDER_NO
+		<if test="searchCondition == 'user_no'">AND USER_NO = '#{searchKeyword}'%'</if>
+		<if test="searchCondition == 'payment_bankname'">
+			AND PAYMENT_BANKNAME LIKE '%'||#{searchKeyword}||'%'
+		</if>
+		<if test="searchCondition == 'payment_type'">AND PAYMENT_TYPE LIKE '%'||#{searchKeyword}||'%'</if>
+		<if test="searchCondition == 'payment_status'">
+			AND PAYMENT_STATUS LIKE ''%'||#{searchKeyword}||'%'
+		</if>
+		<if test="searchCondition == 'payment_delivery_status'">
+			AND PAYMENT_DELIVERY_STATUS LIKE '%'||#{searchKeyword}||'%'
+		</if>
+			ORDER BY o.ORDER_DATE DESC) x)
+		<if test="begin == null and end == null">WHERE rnum BETWEEN '1' AND '10'</if>
+		<if test="begin != null and end != null">WHERE rnum BETWEEN #{begin} AND #{end}</if>
+	<!--  ]]>  -->
+	</select>
+	
+	<!--  펀딩관리자의 반품 완료 버튼   -->
+	<update id="orderDetailReturnUpdate" parameterType="payment">
+		UPDATE ORDER_DETAIL SET ORDER_STATUS ='반품완료' WHERE ORDER_NO = #{order_no}
+	</update>
+	
+	<select id="homePopularGoods" parameterType="payment" resultType="payment">
+		SELECT * FROM USERS ORDER BY USER_NO
+	</select>
+	
+	<select id="homeSexRatio" parameterType="payment" resultType="payment">
+		SELECT * FROM USERS ORDER BY USER_NO
+	</select>
+	
+	
+	
+<!--  참여 펀딩 리스트 조회  -->
+<select id="getOrderList" parameterType="orderlist" resultType="orderlist">
+	SELECT P.PRO_NO, P.PRO_TITLE, P.PRO_THUMBNAIL_PATH, P.PRO_STATUS, O.USER_NO, O.ORDER_NO, O.ORDER_DATE, O.PAYMENT_STATUS, G.GOODS_TITLE, PAY.PAYMENT_PRICE, D.ORDER_EA FROM PROJECT P, ORDERS O, GOODS G, PAYMENT PAY, ORDER_DETAIL D WHERE P.PRO_NO = O.PRO_NO AND P.PRO_NO = G.PRO_NO AND O.ORDER_NO = PAY.ORDER_NO AND O.ORDER_NO = D.ORDER_NO AND O.USER_NO = #{user_no} ORDER BY O.ORDER_NO DESC
+</select>
+
+<!--  좋아요 담기  -->
+<insert id="insertWishList" parameterType="wish">
+	INSERT INTO WISHLIST (WISH_NO, PRO_NO, USER_NO) VALUES (WISHLIST_SEQ.NEXTVAL, #{pro_no}, #{user_no})
+</insert>
+
+<!--  좋아요 취소(삭제)  -->
+<delete id="deleteWishList" parameterType="wish">
+	DELETE FROM WISHLIST WHERE PRO_NO=#{pro_no} AND USER_NO= #{user_no}
+</delete>
+
+<!--  좋아요 조회  -->
+<select id="getWishList" parameterType="wishlist" resultType="wishlist">
+	SELECT W.USER_NO, W.PRO_NO, P.PRO_THUMBNAIL_PATH, P.PRO_TITLE, P.PRO_CLOSE_DT, P.PRO_STATUS FROM WISHLIST W, PROJECT P WHERE W.PRO_NO = P.PRO_NO AND W.USER_NO = #{user_no} ORDER BY P.PRO_NO DESC
+</select>
+<!--  좋아요 하나만 조회  -->
+<select id="getOneWishList" parameterType="wish" resultType="wish">
+	SELECT * FROM WISHLIST W WHERE W.PRO_NO=#{pro_no} AND W.USER_NO =#{user_no}
+</select>
+<!--  민정 쿼리문 End  -->
+</mapper>

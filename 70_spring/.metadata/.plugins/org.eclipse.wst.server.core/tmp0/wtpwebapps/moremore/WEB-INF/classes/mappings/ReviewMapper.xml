@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reviewDAO">
+	
+	<select id="getReviewList" parameterType="review" resultType="review">
+		SELECT *
+		FROM USERS U INNER JOIN REVIEW R
+		ON U.USER_NO = R.USER_NO
+		WHERE PRO_NO = #{pro_no}
+		ORDER BY REVIEW_REGDATE DESC
+	</select>
+	
+	<select id="reviewConfirmUser" parameterType="review" resultType="review">
+		SELECT U.USER_NO, O.ORDER_NO, O.PRO_NO, O.PAYMENT_DELIVERY_STATUS
+		FROM USERS U INNER JOIN ORDERS O
+		ON U.USER_NO = O.USER_NO 
+		WHERE O.USER_NO = #{user_no} 
+		AND O.PRO_NO = #{pro_no}
+	</select>
+	
+	<insert id="reviewInsert" parameterType="review">
+		INSERT INTO REVIEW
+		VALUES (REVIEW_SEQ.NEXTVAL, #{user_no}, #{pro_no}, #{review_content}, #{review_score}, SYSDATE)
+	</insert>
+	
+	<update id="updateReview" parameterType="review">
+		UPDATE REVIEW
+		SET REVIEW_CONTENT = #{review_content}, REVIEW_SCORE = #{review_score}
+		WHERE USER_NO = #{user_no} AND REVIEW_NO = #{review_no} AND PRO_NO = #{pro_no}
+	</update>
+	
+	<delete id="reviewDelete" parameterType="review">
+		DELETE FROM REVIEW
+		WHERE USER_NO = #{user_no} AND REVIEW_NO = #{review_no} AND PRO_NO = #{pro_no}
+	</delete>
+	
+	<!-- 리뷰 별점 평균 조회 -->
+	<select id="reviewAvg" parameterType="review" resultType="review">
+		SELECT ROUND(AVG(REVIEW_SCORE)) AS REVIEW_SCORE 
+		FROM REVIEW
+		WHERE PRO_NO = #{pro_no}
+	</select>
+	
+</mapper> 
+

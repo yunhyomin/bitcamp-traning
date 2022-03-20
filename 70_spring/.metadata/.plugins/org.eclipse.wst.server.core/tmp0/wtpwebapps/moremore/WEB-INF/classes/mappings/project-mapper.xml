@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project">
+
+	<!-- 영동 -->
+	<!-- 부등호를 태그로 인식해서 발생하는 에러를 CDATA로 처리 -->
+	<select id="bestItemList" parameterType="project"
+		resultType="project">
+		<![CDATA[
+	SELECT * FROM 
+	(SELECT ROWNUM as rnum, x.* FROM 
+			(SELECT p.PRO_NO, p.PRO_STITLE, p.PRO_GPRICE, p.PRO_THUMBNAIL_PATH, p.PRO_IMG_PATH, TO_CHAR(TO_DATE(PRO_CLOSE_DT,'YYYY-MM-DD') - TO_DATE(PRO_START_DT,'YYYY-MM-DD')) AS PRO_CLOSE_DT, p.PRO_HASHTAG, sum(p2.PAYMENT_PRICE) AS pro_status
+			FROM PROJECT p, ORDERS o, PAYMENT p2 
+			WHERE p.PRO_NO = o.PRO_NO 
+			AND o.ORDER_NO = p2.ORDER_NO 
+			AND p.PRO_CATENO = '4'
+			GROUP BY p.PRO_NO, p.PRO_STITLE, p.PRO_GPRICE, p.PRO_THUMBNAIL_PATH, p.PRO_IMG_PATH, TO_CHAR(TO_DATE(PRO_CLOSE_DT,'YYYY-MM-DD') - TO_DATE(PRO_START_DT,'YYYY-MM-DD')), p.PRO_HASHTAG
+			ORDER BY p.PRO_NO) x)
+	WHERE rnum BETWEEN 1 AND 4
+		]]>
+	</select>
+
+	<select id="recommendItemList" parameterType="project"
+		resultType="project">
+		<![CDATA[
+	SELECT * FROM 
+	(SELECT ROWNUM as rnum, x.* FROM 
+			(SELECT p.PRO_NO, p.PRO_STITLE, p.PRO_GPRICE, p.PRO_THUMBNAIL_PATH, p.PRO_IMG_PATH, TO_CHAR(TO_DATE(PRO_CLOSE_DT,'YYYY-MM-DD') - TO_DATE(PRO_START_DT,'YYYY-MM-DD')) AS PRO_CLOSE_DT, p.PRO_HASHTAG, sum(p2.PAYMENT_PRICE) AS pro_status
+			FROM PROJECT p, ORDERS o, PAYMENT p2 
+			WHERE p.PRO_NO = o.PRO_NO 
+			AND o.ORDER_NO = p2.ORDER_NO 
+			AND p.PRO_CATENO = '2'
+			GROUP BY p.PRO_NO, p.PRO_STITLE, p.PRO_GPRICE, p.PRO_THUMBNAIL_PATH, p.PRO_IMG_PATH, TO_CHAR(TO_DATE(PRO_CLOSE_DT,'YYYY-MM-DD') - TO_DATE(PRO_START_DT,'YYYY-MM-DD')), p.PRO_HASHTAG
+			ORDER BY p.PRO_NO) x)
+	WHERE rnum BETWEEN 1 AND 4
+		]]>
+	</select>
+
+	<select id="hashTagItemList" parameterType="project"
+		resultType="project">
+		<![CDATA[
+	SELECT * FROM 
+	(SELECT ROWNUM as rnum, x.* FROM 
+			(SELECT p.PRO_NO, p.PRO_STITLE, p.PRO_GPRICE, p.PRO_THUMBNAIL_PATH, p.PRO_IMG_PATH, TO_CHAR(TO_DATE(PRO_CLOSE_DT,'YYYY-MM-DD') - TO_DATE(PRO_START_DT,'YYYY-MM-DD')) AS PRO_CLOSE_DT, p.PRO_HASHTAG, sum(p2.PAYMENT_PRICE) AS pro_status
+			FROM PROJECT p, ORDERS o, PAYMENT p2 
+			WHERE p.PRO_NO = o.PRO_NO 
+			AND o.ORDER_NO = p2.ORDER_NO 
+			AND p.PRO_CATENO = '5'
+			GROUP BY p.PRO_NO, p.PRO_STITLE, p.PRO_GPRICE, p.PRO_THUMBNAIL_PATH, p.PRO_IMG_PATH, TO_CHAR(TO_DATE(PRO_CLOSE_DT,'YYYY-MM-DD') - TO_DATE(PRO_START_DT,'YYYY-MM-DD')), p.PRO_HASHTAG
+			ORDER BY p.PRO_NO) x)
+	WHERE rnum BETWEEN 1 AND 4
+		]]>
+	</select>
+
+	<select id="searchItemList" parameterType="string" resultType="project">
+		<![CDATA[
+		SELECT * FROM 
+	(SELECT ROWNUM as rnum, x.* FROM 
+			(SELECT p.PRO_NO, p.PRO_STITLE, p.PRO_GPRICE, p.PRO_THUMBNAIL_PATH, p.PRO_IMG_PATH, TO_CHAR(TO_DATE(PRO_CLOSE_DT,'YYYY-MM-DD') - TO_DATE(PRO_START_DT,'YYYY-MM-DD')) AS PRO_CLOSE_DT, p.PRO_HASHTAG, sum(p2.PAYMENT_PRICE) AS pro_status
+			FROM PROJECT p, ORDERS o, PAYMENT p2 
+			WHERE p.PRO_NO = o.PRO_NO 
+			AND o.ORDER_NO = p2.ORDER_NO 
+			GROUP BY p.PRO_NO, p.PRO_STITLE, p.PRO_GPRICE, p.PRO_THUMBNAIL_PATH, p.PRO_IMG_PATH, TO_CHAR(TO_DATE(PRO_CLOSE_DT,'YYYY-MM-DD') - TO_DATE(PRO_START_DT,'YYYY-MM-DD')), p.PRO_HASHTAG
+			ORDER BY p.PRO_NO) x)
+	WHERE PRO_STITLE LIKE '%'||#{pro_stitle}||'%'
+		]]>
+	</select>
+
+	<!-- 은해누나 -->
+	<!-- 펀딩 프로젝트 한개 가져오기 -->
+	<select id="getOneProject" parameterType="project"
+		resultType="project">
+		SELECT P.*, PC.PRO_CATENAME, C.COMPANY_NAME
+		FROM PROJECT P INNER JOIN COMPANY C
+		ON P.USER_NO = C.USER_NO
+		INNER JOIN PROJECT_CATEGORY PC
+		ON P.PRO_CATENO = PC.PRO_CATENO
+		WHERE P.PRO_NO = #{pro_no}
+	</select>
+
+	<!-- 해당 프로젝트릐 옵션 가져오기 -->
+	<select id="getProGoodsList" parameterType="project"
+		resultType="goods">
+		SELECT *
+		FROM(SELECT ROWNUM GOODS_RNUM, A.*
+		FROM (SELECT G.*
+		FROM PROJECT P INNER JOIN GOODS G
+		ON P.PRO_NO = G.PRO_NO
+		WHERE P.PRO_NO = #{pro_no})A
+		ORDER BY GOODS_PRICE)
+	</select>
+
+	<!-- 굿즈 한개 가져오기 -->
+	<select id="getOneGoods" parameterType="goods"
+		resultType="goods">
+		SELECT *
+		FROM(SELECT ROWNUM GOODS_RNUM, A.*
+		FROM (SELECT * FROM GOODS
+		WHERE PRO_NO = #{pro_no})A)
+		WHERE GOODS_RNUM = #{goods_rnum}
+	</select>
+
+	<!-- 투자자 구하기 -->
+	<select id="getInvestorNumber" parameterType="project"
+		resultType="string">
+		SELECT COUNT(*) FROM ORDERS O INNER JOIN ORDER_DETAIL D ON O.ORDER_NO =
+		D.ORDER_NO WHERE PRO_NO = #{pro_no} ORDER BY O.ORDER_NO
+	</select>
+	<!-- 진행중인 펀딩투자금액 구하기 -->
+	<select id="getInvestmentAmount" parameterType="project"
+		resultType="string">
+		SELECT SUM(PAYMENT_PRICE) FROM ORDERS O INNER JOIN ORDER_DETAIL D ON
+		O.ORDER_NO = D.ORDER_NO INNER JOIN PAYMENT P ON O.ORDER_NO =
+		P.ORDER_NO WHERE PRO_NO = #{pro_no} ORDER BY O.ORDER_NO
+	</select>
+	<!-- 좋아요 갯수 -->
+	<select id="getWishList" parameterType="project"
+		resultType="string">
+		SELECT COUNT(*) FROM WISHLIST WHERE PRO_NO = #{pro_no}
+	</select>
+	<!-- 회사 정보 -->
+	<select id="getCompanyInformation" parameterType="project"
+		resultType="users">
+		SELECT C.COMPANY_NAME, U.USER_NAME, U.USER_PHONE, U.USER_EMAIL FROM COMPANY
+		C INNER JOIN PROJECT P ON C.COMPANY_NO = P.COMPANY_NO INNER JOIN USERS
+		U ON P.USER_NO = U.USER_NO WHERE P.PRO_NO = #{pro_no}
+	</select>
+	<!-- 서포터 정보 -->
+	<select id="getSupporterList" parameterType="project"
+		resultType="project">
+		SELECT U.USER_NAME, O.PRIVATE_NAME, P.PAYMENT_PRICE FROM PROJECT P INNER
+		JOIN ORDERS O ON P.PRO_NO = O.PRO_NO INNER JOIN USERS U ON O.USER_NO =
+		U.USER_NO INNER JOIN PAYMENT P ON P.ORDER_NO = O.ORDER_NO WHERE
+		P.PRO_NO = #{pro_no}
+	</select>
+	
+	<!-- 카테고리별 펀딩 리스트  -->
+	<select id="fundingCateItemList" parameterType="map" resultType="project">
+	SELECT * FROM 
+	(SELECT ROWNUM as rnum, x.* FROM 
+			(SELECT p.PRO_NO, p.PRO_STITLE, p.PRO_GPRICE, p.PRO_THUMBNAIL_PATH, p.PRO_IMG_PATH, TO_CHAR(TO_DATE(PRO_CLOSE_DT,'YYYY-MM-DD') - TO_DATE(PRO_START_DT,'YYYY-MM-DD')) AS PRO_CLOSE_DT, p.PRO_HASHTAG, sum(p2.PAYMENT_PRICE) AS pro_status
+			FROM PROJECT p, ORDERS o, PAYMENT p2 
+			WHERE p.PRO_NO = o.PRO_NO 
+			AND o.ORDER_NO = p2.ORDER_NO 
+			AND p.PRO_CATENO = #{pro_cateno}
+			GROUP BY p.PRO_NO, p.PRO_STITLE, p.PRO_GPRICE, p.PRO_THUMBNAIL_PATH, p.PRO_IMG_PATH, TO_CHAR(TO_DATE(PRO_CLOSE_DT,'YYYY-MM-DD') - TO_DATE(PRO_START_DT,'YYYY-MM-DD')), p.PRO_HASHTAG
+			ORDER BY p.PRO_NO) x)
+	WHERE rnum BETWEEN 1 AND 20
+	</select>
+
+</mapper>

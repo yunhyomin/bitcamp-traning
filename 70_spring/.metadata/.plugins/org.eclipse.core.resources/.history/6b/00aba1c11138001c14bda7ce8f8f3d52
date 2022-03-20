@@ -1,0 +1,30 @@
+package com.aa.spring.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.Controller;
+
+import com.aa.spring.user.UserDAO;
+import com.aa.spring.user.UserVO;
+
+public class UserController implements Controller{
+
+	@Override
+	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		UserDAO userDAO = new UserDAO();
+		List<UserVO> list= userDAO.getUser();
+		
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("user.jsp");
+		mav.addObject("users", list);
+		
+		return mav;
+	}
+	
+}
