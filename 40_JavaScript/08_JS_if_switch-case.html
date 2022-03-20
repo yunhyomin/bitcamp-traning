@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript : if, switch~case</title>
+    <script>
+        //if(조건식) {}
+        //if(조건식) {} else {}
+        //if(조건식) {} else if(조건식){} else if(조건식){} ...else {}
+        if(true){
+            document.write("if문 조건식의 결과가 true인 경우 출력", "<br>");
+        }
+
+        let bool = confirm("<확인>선택 - true 출력 , <취소>선택 - false 출력");
+        if(bool){
+            document.write("확인 선택 - true", "<br>");
+        }else{
+            document.write("취소 선택 - false", "<br>");
+        }
+        document.write("<hr>");
+
+        //===========================
+        /*(실습)점수를 입력받고 점수에 따라 평가하고 결과를 화면 표시 
+        90이상 : A, 80이상 : B, 70이상 : C, 70미만 : D
+        출력형태 : 점수 90 - 평가결과 A
+        */
+       document.write(" '100' > '20' :"+ Boolean('100'>'20'), "<br>");//false : 문자열비교처리
+       document.write(" '100' > 20 : "+ Boolean('100'>20), "<br>");//true : 문자열->숫자타입 후 비교
+
+        let score = prompt("점수를 입력 해주세요(0~100)",100);
+        document.write("isNaN("+score+"): "+ isNaN(score),"<br>");
+        //  score = Number(input); -->따로 명시해주지 않아도 됨 문자열이 자동 형변환되어지기 때문에 
+        document.write("입력값 : "+score,"<br>");
+
+        let rank = "평가안됨";
+        //isNaN() : false값 = 숫자, '', true/false, null ///true = 숫자가 아닌경우 
+        if(isNaN(score) || score ==="" || score ===null){
+            rank = '숫자가 아님';
+        }else if(score <0 || score >100){
+            rank = '정상범위(0~100)가 아님';
+        }else if(score>=90){
+            rank = 'A';
+        }else if(score>=80){
+            rank = 'B';
+        }else if(score>=70){
+            rank = 'C';
+        }else if(score >=0){
+            rank = 'D';
+        }else{
+        }
+
+        document.write("점수 : "+ score +" - 평가결과 : "+ rank,"<br>");
+
+        //====================================
+        //switch ~ case 분기문
+        let divScore = Math.floor(score/10); //88/10 -->8.8 -->8 (parseInt도 가능)
+        switch(divScore){
+            case 10 :
+                // rank = 'A';
+                // break;
+            case 9 :
+                rank = 'A';
+                break;
+            case 8 :
+                rank = 'B';
+                break;
+            case 7 :
+                rank = 'C';
+                break;
+            default :
+                rank = 'D';
+                break;
+        }
+        document.write("점수 : "+ score +" - 평가결과 : "+ rank,"<br>");
+
+        
+        document.write("<h3>-----Java Script 끝 -------</h3>");
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

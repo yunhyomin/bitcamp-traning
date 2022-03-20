@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS : for</title>
+    <script>
+        //반복문 : for, while, do~while
+        //for(초기치; 조건식; 증감식){}
+        for (var i=1; i<=5; i++){
+            document.write("i: "+i, "<br>");
+        }
+        document.write("------for반복끝------<br>")
+        //var 변수선언 : 전역변수로 사용됨 , 중복선언도 가능 
+        document.write("for문 종료 후 i :"+i);
+        document.write("<hr>");
+        
+        for (var i=1; i<=5; i++){
+            document.write("i: "+i, "<br>");
+        }
+        document.write("<hr>");
+
+        //var 키워드 사용변수 중복선언 허용 
+        var num = 0;
+        var num = 999;
+        document.write("num : "+num,"<br>");
+
+        //=======================
+        //let 변수 : 중복선언 할 수 없음.
+        let num1 = 0;
+        // let num1 = 999; error : Identifier 'num1' has already been declared
+        document.write("num1 : "+ num1,"<br>");
+
+        //let 변수 : 사용범위는 { }기준
+        for(let k=1; k<=5; k++){
+            document.write("k: "+k,"<br>");
+        }
+        document.write("----반복끝----<br>");
+        // document.write("for문 종료 후 k : "+k,"<br>"); error : k is not defined
+        document.write("<hr>");
+
+        //============================
+        //(실습) 구구단 3단 브라우저 화면에 출력 
+        document.write("<h2>구구단 3단 출력</h2>");
+        document.write("<p>ex) 3 * 1 = 3</p>");
+        var num = 3;
+        document.write("구구단 "+num+"단<br>");
+        for(var i=1; i<=9; i++){
+            document.write(num+" * "+i+" = "+(num*i),"<br>");
+        }
+        document.write("<hr>");
+
+        //(실습) 출력할 구구단의 단 값을 화면에서 입력받아서 해당 구구단 출력
+        num = prompt("출력할 구구단은 몇단?",9);
+        document.write("구구단 "+num+"단<br>");
+        for(i=1; i<=9; i++){
+            document.write(num+" * "+i+" = "+(num*i),"<br>");
+        }
+        document.write("<hr>");
+
+        //===============================
+        //var키워드 사용없이 변수 사용할 수 있으나 변수선언 키워드 사용 권장
+        abc = 100;//변수선언 키워드 없이 변수 정의 하고 사용 가능 
+        def = "홍길동";
+        document.write("abc : "+abc, "<br>");
+        for(ii = 11; ii<=15; ii++){
+            document.write("ii : "+ ii,"<br>");
+        }
+        document.write("<h3>----JavaScript 끝-----</h3>");
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

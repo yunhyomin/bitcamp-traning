@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<script>
+        //논리연산자 : &&(and), ||(or), !(not)
+        document.write("<h3>논리연산자 : &&(and), ||(or), !(not)<h3>");
+        document.write("20>10 && 300>200"+ (20>10 && 300>200) ,"<br>");
+        document.write("20>10 && 300<200"+ (20>10 && 300<200) ,"<br>");
+        document.write("20<10 && 300>200"+ (20<10 && 300>200) ,"<br>");
+        document.write("20<10 && 300<200"+ (20<10 && 300<200) ,"<br>");
+        document.write("<hr>");
+        
+        document.write("<h3>논리연산자 : &&(and), ||(or), !(not)<h3>");
+        document.write("20>10 || 300>200"+ (20>10 || 300>200) ,"<br>");
+        document.write("20>10 || 300<200"+ (20>10 || 300<200) ,"<br>");
+        document.write("20<10 || 300>200"+ (20<10 ||300>200) ,"<br>");
+        document.write("20<10 || 300<200"+ (20<10 || 300<200) ,"<br>");
+        document.write("<hr>");
+
+        document.write("!true : "+ !true, "<br>");
+        document.write("!(20>10 && 300>200) : "+ !(20>10 && 300>200) ,"<br>");
+
+        document.write("!false :"+ !false, "<br>");
+        document.write("!(20<10 || 300<200) : "+ !(20<10 || 300<200) ,"<br>");
+        document.write("<hr>");
+
+        //삼항연산자 : 조건식 ? 실행문1 : 실행문;
+        document.write("<h3>삼항연산자 : 조건식 ? (true)실행문1 : (false)실행문</h3>");
+        var a= 100;
+        var b= 300;
+        document.write("a:"+a+", b:"+b , "<br>");
+
+        var result= (a>b) ? "a>b" : "a<=b";
+        document.write("결과값 : "+result,"<br>");
+</script>
+</head>
+<body>
+    
+</body>
+</html>

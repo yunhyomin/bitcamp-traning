@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>while</title>
+    <script>
+        //while (조건식) { }
+        //do { } while(조건식) ;
+        //-----------------------------------
+        //while 문으로 1~10까지의 합 구하기 
+       let num = 1;  
+       let sum = 0;
+        while (num <= 10){
+            sum += num //sum = sum + num
+            // document.write("num : "+ num +", sum : "+sum,"<br>");
+            console.log("num : "+ num +", sum : "+sum);
+            num++; // -->없다면 무한루프 
+        }
+        document.write("1~10까지의 합 : "+ sum, "<br>");
+        document.write("<hr>");
+        console.log("---------------------------------------");
+
+        //(실습)위의 while문과 동일한 결과를 만드는 while문 작성 
+        //while문으로 1~10까지의 합 구하기 
+        sum = 0;
+        num = 0;
+
+        while(num <= 10){
+            sum += num;
+            document.write("num : "+ num + ", sum : "+ sum, "<br>");  
+            num++;
+        }
+        document.write("1~10까지의 합 : "+ sum, "<br>");
+        //-->11번 반복된다 
+        document.write("<hr>");
+        //---------------
+        sum = 0;
+        num = 0;
+
+        while(num < 10){ 
+            num++;
+            sum += num;
+            document.write("num : "+ num + ", sum : "+ sum, "<br>");  
+        }
+        document.write("1~10까지의 합 : "+ sum, "<br>");
+        document.write("<hr");
+//****************초기값이 어떠냐에 따라 조건식과 증감연산자의 위치가 달라질 수 있다***********
+
+        //(실습) do~ while문으로 1~10까지의 합 구하기 
+        sum = 0;
+        num = 1;
+
+        do{
+            sum += num;
+            num++;
+         }while(num <= 10);
+
+        document.write("1~10까지의 합 : "+ sum, "<br>");
+        document.write("<hr");
+
+        //============================================
+        // 반복문 제어 : break, continue
+        //break : 반복문 종료하고 빠져나감 
+        //continue : continue 문 이후의 실행문을 실행하지 않고 다음 반복진행 
+        document.write("<h2>---- break , continue ----</h2>");
+        document.write("<h3>----break ----</h3>");
+        num = 1;
+        while(num <= 10){
+            document.write("num : "+ num , "<br>");
+            if(num == 5){
+                document.write("break문 만나서 반복종료!<br>");
+                break;//현재 진행중인 반복문 종료하고 빠져나감 
+            }
+            num++;
+        }
+        document.write(">>>> 반복문 종료 후 문장");
+        document.write("<hr>");
+
+        document.write("<h3>----continue----</h3>");
+        num = 1;
+        while(num <= 10){
+            num++;
+            if(num==5){
+                document.write("continue만나서 다음 반복으로 진행 <br>");
+                continue;
+            }
+            document.write("num : "+ num, "<br>");
+        }
+        document.write(">>>> 반복문 종료 후 문장");
+        document.write("<hr><hr>");
+        //===================================================
+        //중첩 반복문 사용시 모든 반복문 빠져나가기 
+        //외부 반복문에 라벨(이름) 지정해서 사용 
+       outer: //외부반복문 라벨 지정
+        for(let i = 1; i<=5; i++){
+            for(let k=11; k<=15; k++){
+                if(i == 4 && k == 13){
+                    break outer; //외부반복문도 중단처리 
+                }
+                document.write("i : "+ i+ ", k : "+ k, "<br>");
+            }
+            document.write("----------------------<br>");
+        }
+        document.write(">>>> 반복문 종료 후 문장");
+        document.write("<hr>");
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

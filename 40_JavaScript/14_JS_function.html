@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS : function</title>
+    <script>
+        //var선언 변수도 선언문 이전에 사용가능 : var 변수 hoisting
+        //단, 변수명 선언만 끌어올려짐( hoistiong )
+        document.write("var 선언 전 glovalVar : "+ glovalVar, "<br>"); 
+        //사용은 가능하지만 undefined로 나타난다
+
+        var glovalVar = "전역변수 glovalVar";
+        document.write("var 선언 후 glovalVar : "+ glovalVar, "<br>"); 
+
+
+        //function은 사용코드 이후에 작성이 되어 있어도 사용가능( hoisting )
+        displayMsg();
+
+        //어느위치에 선언을 하던 상관이 없다. 선언만 되어있으면 작동한다 hoisting
+        function displayMsg(param){
+            document.write("function dsiplayMsg() ~~~<br>");
+            document.write(">> 파라미터 param : "+ param, "<br>");
+
+            document.write("--->> glovalVar : "+ glovalVar,"<br>");
+
+            //함수 내에서 선언된 var변수 : 지역변수 
+            var localVar = "function내에서만 사용되는 지역변수";
+            document.write("--->> localVar : " + localVar, "<br>");
+
+            //함수 내에서 키워드 없이 선언된 변수 : 전역변수 
+            //(권장) 명시적으로 var사용 (전역변수 : function외부에 선언)
+            localNoVar = "function내에서 var없이 선언된 변수 : 전역변수";
+            document.write("function내부>> localNoVar : "+ localNoVar, "<br>");
+
+            document.write("--------function displayMsg() 끝-------<br><br>");
+        }
+        document.write(">>>function선언문 뒤 --------------------------<br>");
+        // document.write(">>function 외부에서 localVar : "+ localVar, "<br>");//localVar is not defined
+       document.write("function외부 >> localNoVar : "+ localNoVar, "<br>");
+       
+        displayMsg();
+        document.write("<hr>");
+
+        displayMsg("###param~~~!!");
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

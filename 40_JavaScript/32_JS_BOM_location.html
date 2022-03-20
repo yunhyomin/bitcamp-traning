@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOM location</title>
+<script>
+    /*BOM location : 사용자 브라우저 창의 URL정보 
+    location.href : 주소영역에 있는 URL정보 설정, 조회 
+    location.protocol : URL 프로토콜(통신규약) 정보 
+    location.host : URL 호스트 이름(서버의 IP주소 , 도메인명) + 포트번호 
+    location.port : URL 포트번호 
+    location.pathname : URL 서버상의 자원 위치정보(path)
+    location.search : URL상의 요청 쿼리  
+    ******************************************/
+   //location.href  = "https://news.naver.com/main/read.naver?mode=LSD&mid=shm&sid1=102&oid=056&aid=0011120289";
+
+   document.write("href : "+ location.href,"<br>");
+   document.write("protocol : "+ location.protocol,"<br>");
+   document.write("host : "+ location.host,"<br>");//도메인명
+   document.write("port : "+ location.port,"<br>");
+   document.write("pathname : "+ location.pathname,"<br>");
+   document.write("search : "+ location.search,"<br>");//?뒤에 저장되는것 
+
+
+
+</script>
+</head>
+<body>
+    
+</body>
+</html>

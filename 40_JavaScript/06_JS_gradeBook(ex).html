@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        /*한사람의 성적을 입력받아 결과 출력 
+        입력값 : 이름 , 국어, 영어, 수학 점수 (화면입력  prompt)
+        계산처리 : 총점, 평균
+        결과출력 : 브라우저 화면에 결과 출력 
+        ----------------
+        이름 : 홍길동 
+        국어 : 100
+        영어 : 90
+        수학 : 80
+        -----------------
+        총점 : 271
+        평균 : 90.33(소수점 이하 두자리까지)
+        */
+       
+        //입력(input)---------------------------
+       alert("성적처리를 시작합니다");
+       var name = prompt("이름을 입력해주세요","무명");
+       var input = prompt("국어점수를 입력해주세요", 100);
+       var kor = parseInt(input);
+        input = prompt("영어점수를 입력해주세요", 100);
+       var eng = parseInt(input);
+        input = prompt("수학점수를 입력해주세요", 100);
+       var math = parseInt(input);
+       
+        //처리(process)--------------------------
+       var tot = kor + eng + math;
+       var avg = parseInt(tot*100/3)/100.00;
+       //avg = Math.round(tot*100/3)/100; --> 반올림 처리 
+       //avg = (tot/3)toFixed(n) : 소수점 이하 n자리까지 나타내기
+
+    </script>
+</head>
+<body>
+    <!--출력 (output)----------------------------->
+  <h2>성적표</h2>
+    <script>
+    document.write("<hr>");
+    document.write("이름 : "+name,"<br>");
+    document.write("국어 : "+ kor,"<br>");
+    document.write("영어 : "+eng,"<br>");
+    document.write("수학 : "+ math,"<br>");
+    document.write("<hr>");
+    document.write("총점 : "+ tot,"<br>");
+    document.write("평균 : "+ avg,"<br>");
+   </script>
+</body>
+</html>
